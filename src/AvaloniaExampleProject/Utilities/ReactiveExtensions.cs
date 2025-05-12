@@ -1,6 +1,6 @@
 namespace AvaloniaExampleProject.Utilities;
 
-/// <summary> Used only because no reference to System.Reactive is necessary at this moment </summary>
+/// <summary> Used only because a reference to System.Reactive is unnecessary at this moment </summary>
 internal static class ReactiveExtensions
 {
     public static IDisposable Subscribe<T>(this IObservable<T> source, Action<T> onNext) =>
@@ -19,57 +19,16 @@ internal static class ReactiveExtensions
             source.Subscribe(value => observer.OnNext(onSelect(value)), observer.OnError, observer.OnCompleted)
         );
     }
-
-    public static IObservable<(T1 First, T2 Second)> CombineLatest<T1, T2>(
-        this IObservable<T1> source,
-        IObservable<T2> other
-    ) => source.CombineLatest(other, (t1, t2) => (t1, t2));
-
-    public static IObservable<TCombined> CombineLatest<T1, T2, TCombined>(
-        this IObservable<T1> source,
-        IObservable<T2> other,
-        Func<T1, T2, TCombined> onCombined
-    )
-    {
-        T1? currentT1 = default;
-        bool hasT1Value = false;
-        T2? currentT2 = default;
-        bool hasT2Value = false;
-        return Observable.Create<TCombined>(observer =>
-        {
-            var sub1 = source.Subscribe(
-                value =>
-                {
-                    currentT1 = value;
-                    hasT1Value = true;
-                    if (hasT2Value)
-                        observer.OnNext(onCombined(currentT1, currentT2!));
-                },
-                observer.OnError,
-                observer.OnCompleted
-            );
-            var sub2 = other.Subscribe(
-                value =>
-                {
-                    currentT2 = value;
-                    hasT2Value = true;
-                    if (hasT1Value)
-                        observer.OnNext(onCombined(currentT1!, currentT2));
-                },
-                observer.OnError,
-                observer.OnCompleted
-            );
-            return new CombinedDisposable(sub1, sub2);
-        });
-    }
 }
 
+/// <summary> Used only because a reference to System.Reactive is unnecessary at this moment </summary>
 internal static class Observable
 {
     public static IObservable<T> Create<T>(Func<IObserver<T>, IDisposable> onSubscribe) =>
         new FuncObservable<T>(onSubscribe);
 }
 
+/// <summary> Used only because a reference to System.Reactive is unnecessary at this moment </summary>
 internal sealed class Disposable : IDisposable
 {
     public static readonly IDisposable Empty = new Disposable();
@@ -87,18 +46,6 @@ file sealed class FuncDisposable<T>(T state, Action<T> onDispose) : IDisposable
     private readonly Action<T> _onDispose = onDispose;
 
     public void Dispose() => _onDispose(_state);
-}
-
-file sealed class CombinedDisposable(IDisposable disposable1, IDisposable disposable2) : IDisposable
-{
-    private readonly IDisposable _disposable1 = disposable1;
-    private readonly IDisposable _disposable2 = disposable2;
-
-    public void Dispose()
-    {
-        _disposable1.Dispose();
-        _disposable2.Dispose();
-    }
 }
 
 file sealed class FuncObservable<T>(Func<IObserver<T>, IDisposable> onSubscribe) : IObservable<T>

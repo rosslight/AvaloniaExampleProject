@@ -3,6 +3,7 @@ using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Threading;
+using AvaloniaExampleProject.Assets;
 using AvaloniaExampleProject.Utilities;
 using FluentAvalonia.UI.Windowing;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,9 +13,13 @@ namespace AvaloniaExampleProject.Views;
 public sealed partial class MainWindow : AppWindow
 {
     private readonly IServiceProvider _provider;
+    private readonly Resources _i18N;
 
-    public MainWindow(IServiceProvider provider)
+    public IObservable<string> AppTitle => _i18N.Observe(x => x.FormatMainView_Title(App.Version));
+
+    public MainWindow(Resources i18N, IServiceProvider provider)
     {
+        _i18N = i18N;
         _provider = provider;
         InitializeComponent();
 
