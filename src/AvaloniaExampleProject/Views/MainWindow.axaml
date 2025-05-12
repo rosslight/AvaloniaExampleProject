@@ -7,17 +7,16 @@
            xmlns:views="clr-namespace:AvaloniaExampleProject.Views"
            mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
            x:Class="AvaloniaExampleProject.Views.MainWindow"
-           Icon="/Assets/logo.png"
+           Icon="/Assets/favicon.png"
            Title="AvaloniaExampleProject">
     <Grid RowDefinitions="Auto,*">
         <Grid Grid.Row="0" Name="TitleBarHost" ColumnDefinitions="Auto,Auto,*,Auto" Background="Transparent"
               Height="44" VerticalAlignment="Top" Margin="0,0,140,0">
             <Image Grid.Column="0" Margin="12,4,12,4" Width="18" Height="18"
                    IsHitTestVisible="False"
-                   Source="/Assets/logo.png" RenderOptions.BitmapInterpolationMode="HighQuality"/>
-            <TextBlock Grid.Column="1" VerticalAlignment="Center"
-                       IsHitTestVisible="False"
-                       Text="{Binding #WindowContent.((views:MainView)Content).((viewModels:MainViewModel)DataContext).I18N.MainView_Title, FallbackValue='AvaloniaExampleProject'}">
+                   Source="/Assets/favicon.png" RenderOptions.BitmapInterpolationMode="HighQuality"/>
+            <TextBlock Grid.Column="1" VerticalAlignment="Center" IsHitTestVisible="False"
+                       Text="{Binding #WindowContent.((views:MainView)Content).((viewModels:MainViewModel)DataContext).Title^, FallbackValue='AvaloniaExampleProject'}">
             </TextBlock>
         </Grid>
         <UserControl Grid.Row="1" Name="WindowContent" />

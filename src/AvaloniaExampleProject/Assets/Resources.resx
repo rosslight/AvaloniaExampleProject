@@ -21,6 +21,6 @@
     <value>Welcome to Avalonia!</value>
   </data>
   <data name="MainView.Title" xml:space="preserve">
-    <value>Avalonia Example Project</value>
+    <value>Avalonia Example Project {0}</value>
   </data>
 </root>

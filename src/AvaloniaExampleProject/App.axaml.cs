@@ -1,5 +1,7 @@
+using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Reflection;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
@@ -12,6 +14,10 @@ namespace AvaloniaExampleProject;
 public sealed class App(IServiceProvider provider) : Application
 {
     private readonly IServiceProvider _provider = provider;
+
+    public static string Version { get; } =
+        typeof(App).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion
+        ?? throw new VersionNotFoundException("Could not get version");
 
     public override void Initialize()
     {
