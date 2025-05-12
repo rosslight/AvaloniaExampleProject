@@ -1,27 +1,19 @@
-using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using AvaloniaExampleProject.ViewModels;
+using AvaloniaExampleProject.Views;
 
 namespace AvaloniaExampleProject;
 
-public class ViewLocator : IDataTemplate
+public sealed class ViewLocator : IDataTemplate
 {
-    public Control? Build(object? param)
-    {
-        if (param is null)
-            return null;
-
-        var name = param.GetType().FullName!.Replace("ViewModel", "View", StringComparison.Ordinal);
-        var type = Type.GetType(name);
-
-        if (type != null)
+    public Control Build(object? param) =>
+        param switch
         {
-            return (Control)Activator.CreateInstance(type)!;
-        }
-
-        return new TextBlock { Text = "Not Found: " + name };
-    }
+            not ViewModelBase => new TextBlock { Text = $"No VM provided: {param?.GetType()}" },
+            MainWindowViewModel vm => new MainWindow { ViewModel = vm },
+            _ => new TextBlock { Text = $"VM Not Registered: {param.GetType()}" },
+        };
 
     public bool Match(object? data)
     {

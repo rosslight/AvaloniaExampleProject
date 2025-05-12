@@ -1,8 +1,6 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
-using System.Linq;
 using Avalonia.Markup.Xaml;
 using AvaloniaExampleProject.ViewModels;
 using AvaloniaExampleProject.Views;
@@ -11,10 +9,7 @@ namespace AvaloniaExampleProject;
 
 public partial class App : Application
 {
-    public override void Initialize()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
+    public override void Initialize() => AvaloniaXamlLoader.Load(this);
 
     public override void OnFrameworkInitializationCompleted()
     {
@@ -25,7 +20,7 @@ public partial class App : Application
             DisableAvaloniaDataAnnotationValidation();
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new MainWindowViewModel(),
+                ViewModel = new MainWindowViewModel(),
             };
         }
 
