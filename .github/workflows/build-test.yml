@@ -21,4 +21,4 @@ jobs:
       - name: Check formatting using csharpier
         run: |
           dotnet tool restore
-          csharpier check .
+          dotnet csharpier check .
