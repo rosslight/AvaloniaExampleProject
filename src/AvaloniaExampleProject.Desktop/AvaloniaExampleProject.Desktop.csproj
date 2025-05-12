@@ -1,10 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net9.0</TargetFramework>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <PublishAot>true</PublishAot>
+    <!-- Recommended Avalonia trimming settings for Native AOT -->
+    <BuiltInComInteropSupport>false</BuiltInComInteropSupport>
+    <TrimMode>link</TrimMode>
   </PropertyGroup>
+  <ItemGroup>
+    <!-- Preserve Avalonia types for reflection -->
+    <TrimmerRootAssembly Include="Avalonia.Themes.Fluent" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AvaloniaExampleProject\AvaloniaExampleProject.csproj" />
   </ItemGroup>
