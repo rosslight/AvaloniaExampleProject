@@ -1,6 +1,7 @@
 # IDEs
 .idea/
 .vscode/
+*.Dotsettings.user
 
 # Build results
 [Bb]in/

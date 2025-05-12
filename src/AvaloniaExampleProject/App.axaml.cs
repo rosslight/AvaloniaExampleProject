@@ -3,13 +3,15 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-using AvaloniaExampleProject.ViewModels;
 using AvaloniaExampleProject.Views;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AvaloniaExampleProject;
 
-public sealed class App : Application
+public sealed class App(IServiceProvider provider) : Application
 {
+    private readonly IServiceProvider _provider = provider;
+
     public override void Initialize() => AvaloniaXamlLoader.Load(this);
 
     public override void OnFrameworkInitializationCompleted()
@@ -19,13 +21,13 @@ public sealed class App : Application
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit.
             // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
             DisableAvaloniaDataAnnotationValidation();
-            desktop.MainWindow = new MainWindow { ViewModel = new MainWindowViewModel() };
+            desktop.MainWindow = _provider.GetRequiredService<MainWindow>();
         }
 
         base.OnFrameworkInitializationCompleted();
     }
 
-    [UnconditionalSuppressMessage("Trimming", "IL2026", Justification = "We are only removing validators, not using any")]
+    [UnconditionalSuppressMessage("Trimming", "IL2026", Justification = "We are only removing validators")]
     private static void DisableAvaloniaDataAnnotationValidation()
     {
         // Get an array of plugins to remove
