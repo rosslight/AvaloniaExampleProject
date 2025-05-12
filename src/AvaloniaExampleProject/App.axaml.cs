@@ -13,7 +13,13 @@ public sealed class App(IServiceProvider provider) : Application
 {
     private readonly IServiceProvider _provider = provider;
 
-    public override void Initialize() => AvaloniaXamlLoader.Load(this);
+    public override void Initialize()
+    {
+        AvaloniaXamlLoader.Load(this);
+#if DEBUG
+        this.AttachDeveloperTools();
+#endif
+    }
 
     public override void OnFrameworkInitializationCompleted()
     {
