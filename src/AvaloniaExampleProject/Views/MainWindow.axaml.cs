@@ -4,8 +4,5 @@ namespace AvaloniaExampleProject.Views;
 
 public partial class MainWindow : WindowBase<MainWindowViewModel>
 {
-    public MainWindow()
-    {
-        InitializeComponent();
-    }
+    public MainWindow() => InitializeComponent();
 }
