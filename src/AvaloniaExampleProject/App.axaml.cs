@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
@@ -24,7 +25,8 @@ public sealed class App : Application
         base.OnFrameworkInitializationCompleted();
     }
 
-    private void DisableAvaloniaDataAnnotationValidation()
+    [UnconditionalSuppressMessage("Trimming", "IL2026", Justification = "We are only removing validators, not using any")]
+    private static void DisableAvaloniaDataAnnotationValidation()
     {
         // Get an array of plugins to remove
         DataAnnotationsValidationPlugin[] dataValidationPluginsToRemove = BindingPlugins
