@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
@@ -16,6 +17,7 @@ public sealed class App(IServiceProvider provider) : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        Assets.Resources.Default.Culture = new CultureInfo("de-de");
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit.

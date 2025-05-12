@@ -1,6 +1,8 @@
-﻿namespace AvaloniaExampleProject.ViewModels;
+﻿using AvaloniaExampleProject.Assets;
 
-public sealed class MainWindowViewModel : ViewModelBase
+namespace AvaloniaExampleProject.ViewModels;
+
+public sealed class MainWindowViewModel(Resources i18N) : ViewModelBase
 {
-    public string Greeting { get; } = "Welcome to Avalonia!";
+    public Resources I18N { get; } = i18N;
 }

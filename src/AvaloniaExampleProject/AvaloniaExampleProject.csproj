@@ -19,6 +19,10 @@
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="Darp.Utils.ResxSourceGenerator" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Assets/Resources.resx" Public="true" EmitFormatMethods="true" />
   </ItemGroup>
 </Project>
