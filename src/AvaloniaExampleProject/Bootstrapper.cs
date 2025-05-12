@@ -9,14 +9,14 @@ namespace AvaloniaExampleProject;
 public static class Bootstrapper
 {
     public static IServiceCollection AddAppServices(this IServiceCollection serviceCollection) =>
-        serviceCollection.AddViewModel<MainWindow, MainWindowViewModel>().AddLocalization();
+        serviceCollection.AddViewModel<MainView, MainViewModel>().AddLocalization();
 
     private static IServiceCollection AddViewModel<
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] TView,
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] TViewModel
     >(this IServiceCollection serviceCollection)
-        where TView : class, IViewBase<TViewModel>, new()
-        where TViewModel : class
+        where TView : UserControlBase<TViewModel>, new()
+        where TViewModel : ViewModelBase
     {
         return serviceCollection
             .AddTransient<TViewModel>()

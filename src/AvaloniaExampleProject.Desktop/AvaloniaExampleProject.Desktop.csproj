@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Preserve Avalonia types for reflection -->
-    <TrimmerRootAssembly Include="Avalonia.Themes.Fluent" />
+    <TrimmerRootAssembly Include="FluentAvalonia" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AvaloniaExampleProject\AvaloniaExampleProject.csproj" />

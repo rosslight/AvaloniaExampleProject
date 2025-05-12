@@ -17,13 +17,14 @@ public sealed class App(IServiceProvider provider) : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
-        Assets.Resources.Default.Culture = new CultureInfo("de-de");
+        var i18N = _provider.GetRequiredService<Assets.Resources>();
+        i18N.Culture = new CultureInfo("de-de");
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit.
             // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
             DisableAvaloniaDataAnnotationValidation();
-            desktop.MainWindow = _provider.GetRequiredService<MainWindow>();
+            desktop.MainWindow = new MainWindow(_provider);
         }
 
         base.OnFrameworkInitializationCompleted();

@@ -11,13 +11,15 @@ namespace AvaloniaExampleProject;
 /// </summary>
 public sealed class ViewLocator : IDataTemplate
 {
-    public Control Build(object? param) =>
-        param switch
+    public Control Build(object? param)
+    {
+        return param switch
         {
             not ViewModelBase => new TextBlock { Text = $"No VM provided: {param?.GetType()}" },
-            MainWindowViewModel vm => new MainWindow { ViewModel = vm },
+            MainViewModel vm => new MainView { ViewModel = vm },
             _ => new TextBlock { Text = $"VM Not Registered: {param.GetType()}" },
         };
+    }
 
     public bool Match(object? data) => data is ViewModelBase;
 }
