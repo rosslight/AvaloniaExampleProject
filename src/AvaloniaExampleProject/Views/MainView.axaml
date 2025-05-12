@@ -6,6 +6,6 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="AvaloniaExampleProject.Views.MainView"
              x:DataType="vm:MainViewModel">
-    <TextBlock Text="{Binding I18N.MainWindow_Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    <TextBlock Text="{Binding I18N.MainView_Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center" />
 </UserControl>
 

@@ -1,7 +1,9 @@
+using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Threading;
+using AvaloniaExampleProject.Utilities;
 using FluentAvalonia.UI.Windowing;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,7 +17,35 @@ public sealed partial class MainWindow : AppWindow
     {
         _provider = provider;
         InitializeComponent();
+
+        ConfigureTitleBar();
+
         SplashScreen = new MainAppSplashScreen(this);
+    }
+
+    private void ConfigureTitleBar()
+    {
+        TitleBar.ExtendsContentIntoTitleBar = true;
+        TitleBar.TitleBarHitTestType = TitleBarHitTestType.Complex;
+        TitleBar.Height = 44;
+
+        // Update background colors
+        _ = Resources
+            .GetResourceObservable("AppBarButtonBackgroundPointerOver")
+            .Subscribe(o =>
+            {
+                if (o is not SolidColorBrush brush)
+                    return;
+                TitleBar.ButtonHoverBackgroundColor = brush.Color;
+            });
+        _ = Resources
+            .GetResourceObservable("AppBarButtonBackgroundPressed")
+            .Subscribe(o =>
+            {
+                if (o is not SolidColorBrush brush)
+                    return;
+                TitleBar.ButtonPressedBackgroundColor = brush.Color;
+            });
     }
 
     internal async Task LoadAsync(CancellationToken cancellationToken)
@@ -23,7 +53,7 @@ public sealed partial class MainWindow : AppWindow
         await Task.Delay(100, cancellationToken);
         Dispatcher.UIThread.Invoke(() =>
         {
-            Content = _provider.GetRequiredService<MainView>();
+            WindowContent.Content = _provider.GetRequiredService<MainView>();
         });
     }
 }
