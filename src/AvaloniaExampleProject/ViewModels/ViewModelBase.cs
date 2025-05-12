@@ -2,4 +2,5 @@
 
 namespace AvaloniaExampleProject.ViewModels;
 
-public class ViewModelBase : ObservableObject;
+/// <summary> A base class for all ViewModels </summary>
+public abstract class ViewModelBase : ObservableObject;

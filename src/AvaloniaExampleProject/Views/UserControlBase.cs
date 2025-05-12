@@ -3,10 +3,12 @@ using Avalonia.Controls;
 
 namespace AvaloniaExampleProject.Views;
 
+/// <summary> A base class which provides a typed <see cref="ViewModel"/> property for an <see cref="UserControl"/> </summary>
+/// <typeparam name="T"> The type of the ViewModel </typeparam>
 public abstract class UserControlBase<T> : UserControl
     where T : notnull
 {
-    /// <inheritdoc cref="UserControl.DataContext"/>
+    /// <inheritdoc cref="UserControl.DataContext" />
     public new object? DataContext
     {
         get => base.DataContext;
