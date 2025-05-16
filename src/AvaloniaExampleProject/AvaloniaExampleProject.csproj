@@ -24,6 +24,7 @@
     <PackageReference Include="Darp.Utils.ResxSourceGenerator" PrivateAssets="all" />
     <PackageReference Include="FluentAvaloniaUI" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Assets/Resources.resx" Public="true" EmitFormatMethods="true" />
