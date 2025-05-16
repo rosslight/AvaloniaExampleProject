@@ -1,9 +1,8 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Data.Converters;
-using AvaloniaExampleProject.Business;
 using AvaloniaExampleProject.ViewModels;
 using FluentAvalonia.UI.Controls;
+using FluentAvalonia.UI.Media.Animation;
 using FluentAvalonia.UI.Navigation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -13,6 +12,7 @@ namespace AvaloniaExampleProject.Views;
 public partial class MainView : UserControlBase<MainViewModel>
 {
     private readonly ILogger<MainView> _logger;
+    private readonly NavigationTransitionInfo _transitionInfo = new EntranceNavigationTransitionInfo();
 
     public MainView(IServiceProvider serviceProvider)
     {
@@ -33,10 +33,10 @@ public partial class MainView : UserControlBase<MainViewModel>
         switch (e.SelectedItemContainer?.Tag)
         {
             case "Settings":
-                MainFrame.Navigate(typeof(SettingsViewModel));
+                MainFrame.Navigate(typeof(SettingsViewModel), null, _transitionInfo);
                 break;
             case Type type:
-                MainFrame.Navigate(type);
+                MainFrame.Navigate(type, null, _transitionInfo);
                 break;
         }
     }

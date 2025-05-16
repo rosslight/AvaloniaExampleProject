@@ -29,14 +29,22 @@ public sealed partial class SettingsViewModel(
     [ObservableProperty]
     public partial string SelectedTheme { get; set; } = configurationService.Config.UserPreferences.SelectedTheme;
 
-    partial void OnSelectedLanguageChanged(string value)
+    // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+    partial void OnSelectedLanguageChanging(string value)
     {
+        if (value is null)
+            return;
         I18N.Culture = new CultureInfo(value);
         SaveConfig(c => c with { UserPreferences = c.UserPreferences with { SelectedLanguage = value } });
     }
 
-    partial void OnSelectedThemeChanged(string value) =>
+    // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+    partial void OnSelectedThemeChanged(string value)
+    {
+        if (value is null)
+            return;
         SaveConfig(c => c with { UserPreferences = c.UserPreferences with { SelectedTheme = value } });
+    }
 
     private void SaveConfig(Func<MainConfig, MainConfig> createConfig)
     {
