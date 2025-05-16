@@ -15,6 +15,7 @@ public static class Bootstrapper
             .AddAppDataAssetsService("AvaloniaExampleProject")
             .AddConfigurationFile<MainConfig, IAppDataAssetsService>("config.json", JsonContext.Default.MainConfig)
             .AddSingleton<IThemeService, ThemeService>()
+            .AddTransient<MainWindowViewModel>()
             .AddTransient<MainViewModel>()
             .AddTransient<WelcomeViewModel>()
             .AddTransient<SettingsViewModel>()

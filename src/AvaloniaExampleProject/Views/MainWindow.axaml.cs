@@ -26,6 +26,8 @@ public sealed partial class MainWindow : AppWindow
         _provider = provider;
         InitializeComponent();
 
+        DataContext = provider.GetRequiredService<MainWindowViewModel>();
+
         ConfigureTitleBar();
 
         SplashScreen = new MainAppSplashScreen(this);
@@ -35,8 +37,8 @@ public sealed partial class MainWindow : AppWindow
     {
         var configurationService = _provider.GetRequiredService<IConfigurationService<MainConfig>>();
         var config = await configurationService.LoadConfigurationAsync(cancellationToken);
-        Assets.Resources.Default.Culture = new CultureInfo(config.UserPreferences.SelectedLanguage);
-
+        var i18N = _provider.GetRequiredService<Resources>();
+        i18N.Culture = new CultureInfo(config.UserPreferences.SelectedLanguage);
         Dispatcher.UIThread.Invoke(() =>
         {
             WindowContent.Content = new MainView(_provider)

@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace AvaloniaExampleProject.Desktop;
 
@@ -14,7 +15,10 @@ internal sealed class Program
     // Avalonia configuration, don't remove; also used by visual designer.
     public static AppBuilder BuildAvaloniaApp()
     {
-        var provider = new ServiceCollection().AddAppServices().BuildServiceProvider();
+        var provider = new ServiceCollection()
+            .AddLogging(builder => builder.AddConsole())
+            .AddAppServices()
+            .BuildServiceProvider();
         return AppBuilder.Configure(() => new App(provider)).UsePlatformDetect().WithInterFont().LogToTrace();
     }
 }

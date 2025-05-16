@@ -1,33 +1,36 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data.Converters;
 using AvaloniaExampleProject.Business;
 using AvaloniaExampleProject.ViewModels;
 using FluentAvalonia.UI.Controls;
+using FluentAvalonia.UI.Navigation;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace AvaloniaExampleProject.Views;
 
 public partial class MainView : UserControlBase<MainViewModel>
 {
-    public static readonly IValueConverter ThemeTranslationConverter = new FuncValueConverter<string, string>(s =>
-        s switch
-        {
-            ThemeService.DefaultTheme => Assets.Resources.Default.Settings_Theme_Default,
-            ThemeService.LightTheme => Assets.Resources.Default.Settings_Theme_Light,
-            ThemeService.DarkTheme => Assets.Resources.Default.Settings_Theme_Dark,
-            _ => "n/a",
-        }
-    );
+    private readonly ILogger<MainView> _logger;
 
     public MainView(IServiceProvider serviceProvider)
     {
+        _logger = serviceProvider.GetRequiredService<ILogger<MainView>>();
         InitializeComponent();
         MainFrame.NavigationPageFactory = new DependencyInjectionPageFactory(serviceProvider);
     }
 
+    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        object? firstItem = NavView.MenuItems.FirstOrDefault();
+        if (firstItem is not null)
+            NavView.SelectedItem = firstItem;
+    }
+
     private void TabStripControl_OnSelectionChanged(object? sender, NavigationViewSelectionChangedEventArgs e)
     {
-        switch (e.SelectedItemContainer.Tag)
+        switch (e.SelectedItemContainer?.Tag)
         {
             case "Settings":
                 MainFrame.Navigate(typeof(SettingsViewModel));
@@ -36,6 +39,16 @@ public partial class MainView : UserControlBase<MainViewModel>
                 MainFrame.Navigate(type);
                 break;
         }
+    }
+
+    private void MainFrame_OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+    {
+        _logger.LogError(
+            e.Exception,
+            "Navigation to {Type} has failed because of {Message}",
+            e.SourcePageType,
+            e.Exception.Message
+        );
     }
 }
 

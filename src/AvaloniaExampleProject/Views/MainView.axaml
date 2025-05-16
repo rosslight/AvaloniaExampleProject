@@ -10,6 +10,7 @@
     <controls:NavigationView Name="NavView"
                              IsSettingsVisible="True" IsPaneToggleButtonVisible="False"
                              SelectionFollowsFocus="True"
+                             SelectedItem="Home"
                              SelectionChanged="TabStripControl_OnSelectionChanged">
         <controls:NavigationView.Resources>
             <!-- Override this so content doesn't appear in the TitleBar area -->
@@ -23,7 +24,7 @@
         <StackPanel Orientation="Vertical" Spacing="16" Margin="8,8,10,6">
             <TextBlock Text="{CompiledBinding #NavView.((controls:NavigationViewItem)SelectedItem).Content}"
                        Theme="{StaticResource TitleTextBlockStyle}"/>
-            <controls:Frame Name="MainFrame" />
+            <controls:Frame Name="MainFrame" NavigationFailed="MainFrame_OnNavigationFailed"/>
         </StackPanel>
     </controls:NavigationView>
 </UserControl>

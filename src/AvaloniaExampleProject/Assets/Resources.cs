@@ -1,10 +1,20 @@
+using System.ComponentModel;
 using AvaloniaExampleProject.Utilities;
 
 namespace AvaloniaExampleProject.Assets;
 
-public partial class Resources
+public partial class Resources : INotifyPropertyChanged
 {
+    private readonly PropertyChangedEventArgs _cultureChangedEventArgs = new(null);
+
+    private Resources()
+    {
+        CultureChanged += (_, _) => PropertyChanged?.Invoke(this, _cultureChangedEventArgs);
+    }
+
     public IObservable<string> Observe(Func<Resources, string> getter) => new ResourcesObservable(this, getter);
+
+    public event PropertyChangedEventHandler? PropertyChanged;
 }
 
 file sealed class ResourcesObservable : IObservable<string>
