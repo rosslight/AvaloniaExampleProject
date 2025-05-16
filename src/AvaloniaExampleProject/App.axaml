@@ -5,6 +5,9 @@
              RequestedThemeVariant="Default">
     <Application.Styles>
         <styling:FluentAvaloniaTheme PreferSystemTheme="True" PreferUserAccentColor="True" />
+        <Style Selector="SelectableTextBlock">
+            <Setter Property="SelectionBrush" Value="{DynamicResource SystemAccentColor}"/>
+        </Style>
     </Application.Styles>
 
     <Application.Resources>

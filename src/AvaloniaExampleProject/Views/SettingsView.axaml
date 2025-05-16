@@ -18,38 +18,62 @@
         <system:Double x:Key="SettingsViewIconHeight">32</system:Double>
         <system:Double x:Key="SettingsViewMaxWidth">1024</system:Double>
     </UserControl.Resources>
-    <ScrollViewer>
-            <StackPanel MaxWidth="{StaticResource SettingsViewMaxWidth}" Margin="0,0,0,48"
-                        Spacing="8">
-                <StackPanel Spacing="8">
-                    <TextBlock Text="{CompiledBinding I18N.Settings_Personalization_Title}" 
-                               Theme="{StaticResource BodyStrongTextBlockStyle}"/>
-                    <controls:SettingsExpander Header="{CompiledBinding I18N.Settings_ChangeLanguage_Title}"
-                                           Description="{CompiledBinding I18N.Settings_ChangeLanguage_Description}">
-                        <controls:SettingsExpander.Footer>
-                            <ComboBox HorizontalAlignment="Center" VerticalAlignment="Center"
-                                      MinWidth="{StaticResource SettingsViewContentWidth}"
-                                      ItemsSource="{CompiledBinding AvailableLanguages}"
-                                      SelectedValue="{CompiledBinding SelectedLanguage}"/>
-                        </controls:SettingsExpander.Footer>
-                    </controls:SettingsExpander>
-                    <controls:SettingsExpander Header="{CompiledBinding I18N.Settings_ChangeTheme_Title}"
-                                               Description="{CompiledBinding I18N.Settings_ChangeTheme_Description}">
-                        <controls:SettingsExpander.Footer>
-                            <ComboBox HorizontalAlignment="Center" VerticalAlignment="Center"
-                                      MinWidth="{StaticResource SettingsViewContentWidth}"
-                                      ItemsSource="{CompiledBinding ThemeService.AvailableThemes}"
-                                      SelectedValue="{CompiledBinding SelectedTheme}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{CompiledBinding Converter={x:Static views:SettingsView.ThemeTranslationConverter}}" />
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </controls:SettingsExpander.Footer>
-                    </controls:SettingsExpander>
-                </StackPanel>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel MaxWidth="{StaticResource SettingsViewMaxWidth}"
+                    Margin="0,0,0,48" Spacing="8">
+            <TextBlock Text="{CompiledBinding I18N.Settings_Personalization_Title}" 
+                       Theme="{StaticResource BodyStrongTextBlockStyle}"/>
+            <StackPanel Spacing="4">
+                <controls:SettingsExpander Header="{CompiledBinding I18N.Settings_ChangeLanguage_Title}"
+                                       Description="{CompiledBinding I18N.Settings_ChangeLanguage_Description}">
+                    <controls:SettingsExpander.Footer>
+                        <ComboBox HorizontalAlignment="Center" VerticalAlignment="Center"
+                                  MinWidth="{StaticResource SettingsViewContentWidth}"
+                                  ItemsSource="{CompiledBinding AvailableLanguages}"
+                                  SelectedValue="{CompiledBinding SelectedLanguage}"/>
+                    </controls:SettingsExpander.Footer>
+                </controls:SettingsExpander>
+                <controls:SettingsExpander Header="{CompiledBinding I18N.Settings_ChangeTheme_Title}"
+                                           Description="{CompiledBinding I18N.Settings_ChangeTheme_Description}">
+                    <controls:SettingsExpander.Footer>
+                        <ComboBox HorizontalAlignment="Center" VerticalAlignment="Center"
+                                  MinWidth="{StaticResource SettingsViewContentWidth}"
+                                  ItemsSource="{CompiledBinding ThemeService.AvailableThemes}"
+                                  SelectedValue="{CompiledBinding SelectedTheme}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{CompiledBinding Converter={x:Static views:SettingsView.ThemeTranslationConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </controls:SettingsExpander.Footer>
+                </controls:SettingsExpander>
             </StackPanel>
+            <TextBlock Text="{CompiledBinding I18N.Settings_About_Title}" 
+                       Theme="{StaticResource BodyStrongTextBlockStyle}"/>
+            <controls:SettingsExpander Header="{CompiledBinding I18N.App_Title}"
+                                       Description="{CompiledBinding I18N.Settings_About_ByCompany}">
+                <controls:SettingsExpander.Footer>
+                    <SelectableTextBlock Text="{CompiledBinding AppVersion^}"
+                                         Theme="{StaticResource CaptionTextBlockStyle}"/>
+                </controls:SettingsExpander.Footer>
+                <controls:SettingsExpanderItem>
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="{CompiledBinding I18N.Settings_About_LibrariesTitle}" />
+                        <ItemsControl>
+                            <HyperlinkButton Content="Library 1" Padding="0" />
+                            <HyperlinkButton Content="Library 2" Padding="0" />
+                            <HyperlinkButton Content="Library 3" Padding="0" />
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid ColumnSpacing="8" RowSpacing="4"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </StackPanel>
+                </controls:SettingsExpanderItem>
+            </controls:SettingsExpander>
+        </StackPanel>
     </ScrollViewer>
 </UserControl>
 

@@ -45,7 +45,7 @@ public sealed class App : Application
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             DisableAvaloniaDataAnnotationValidation();
-            desktop.MainWindow = new MainWindow(i18N, _provider);
+            desktop.MainWindow = new MainWindow(_provider);
         }
 
         base.OnFrameworkInitializationCompleted();

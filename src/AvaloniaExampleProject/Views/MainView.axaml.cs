@@ -32,9 +32,6 @@ public partial class MainView : UserControlBase<MainViewModel>
     {
         switch (e.SelectedItemContainer?.Tag)
         {
-            case "Settings":
-                MainFrame.Navigate(typeof(SettingsViewModel), null, _transitionInfo);
-                break;
             case Type type:
                 MainFrame.Navigate(type, null, _transitionInfo);
                 break;

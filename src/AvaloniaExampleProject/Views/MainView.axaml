@@ -8,7 +8,7 @@
              x:Class="AvaloniaExampleProject.Views.MainView"
              x:DataType="vm:MainViewModel">
     <controls:NavigationView Name="NavView"
-                             IsSettingsVisible="True" IsPaneToggleButtonVisible="False"
+                             IsSettingsVisible="False" IsPaneToggleButtonVisible="False"
                              SelectionFollowsFocus="True"
                              SelectedItem="Home"
                              SelectionChanged="TabStripControl_OnSelectionChanged">
@@ -18,8 +18,13 @@
             <Thickness x:Key="NavigationViewMinimalContentMargin">0,0,0,0</Thickness>
         </controls:NavigationView.Resources>
         <controls:NavigationView.MenuItems>
-            <controls:NavigationViewItem Content="Home" Tag="{x:Type vm:WelcomeViewModel}" IconSource="Home" />
+            <controls:NavigationViewItem IconSource="Home" Tag="{x:Type vm:WelcomeViewModel}"
+                                         Content="{CompiledBinding I18N.Welcome_Title}" />
         </controls:NavigationView.MenuItems>
+        <controls:NavigationView.FooterMenuItems>
+            <controls:NavigationViewItem IconSource="Settings" Tag="{x:Type vm:SettingsViewModel}"
+                                         Content="{CompiledBinding I18N.Settings_Title}" />
+        </controls:NavigationView.FooterMenuItems>
 
         <StackPanel Orientation="Vertical" Spacing="16" Margin="8,8,10,6">
             <TextBlock Text="{CompiledBinding #NavView.((controls:NavigationViewItem)SelectedItem).Content}"

@@ -18,7 +18,7 @@
             <Image Grid.Column="0" Margin="12,4,12,4" Width="18" Height="18"
                    IsHitTestVisible="False"
                    Source="/Assets/favicon.png" RenderOptions.BitmapInterpolationMode="HighQuality"/>
-            <TextBlock Grid.Column="1" VerticalAlignment="Center" IsHitTestVisible="False" Text="{CompiledBinding #Self.AppTitle^}" />
+            <TextBlock Grid.Column="1" VerticalAlignment="Center" IsHitTestVisible="False" Text="{CompiledBinding I18N.App_Title}" />
         </Grid>
         <UserControl Grid.Row="1" Name="WindowContent" />
     </Grid>

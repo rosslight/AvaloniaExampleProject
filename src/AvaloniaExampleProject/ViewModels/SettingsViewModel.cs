@@ -20,6 +20,7 @@ public sealed partial class SettingsViewModel(
 
     public IThemeService ThemeService { get; } = themeService;
     public Resources I18N { get; } = i18N;
+    public IObservable<string> AppVersion => I18N.Observe(x => x.FormatSettings_About_Version(App.Version));
 
     public static string[] AvailableLanguages { get; } = ["en-EN", "de-DE"];
 

@@ -17,11 +17,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MainView.Greeting" xml:space="preserve">
+  <data name="Welcome.Greeting" xml:space="preserve">
     <value>Welcome to Avalonia!</value>
   </data>
-  <data name="MainView.Title" xml:space="preserve">
-    <value>Avalonia Example Project {0}</value>
+  <data name="App.Title" xml:space="preserve">
+    <value>Avalonia Example Project</value>
   </data>
   <data name="Settings.Personalization.Title" xml:space="preserve">
     <value>Personalization</value>
@@ -49,5 +49,23 @@
   </data>
   <data name="Settings.Theme.Dark" xml:space="preserve">
     <value>Dark</value>
+  </data>
+  <data name="Settings.Title" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Welcome.Title" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Settings.About.Title" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Settings.About.LibrariesTitle" xml:space="preserve">
+    <value>Open source libraries</value>
+  </data>
+  <data name="Settings.About.ByCompany" xml:space="preserve">
+    <value>By rosslight GmbH</value>
+  </data>
+  <data name="Settings.About.Version" xml:space="preserve">
+    <value>Version: {0}</value>
   </data>
 </root>

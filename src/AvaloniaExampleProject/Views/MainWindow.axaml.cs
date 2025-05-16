@@ -16,13 +16,9 @@ namespace AvaloniaExampleProject.Views;
 public sealed partial class MainWindow : AppWindow
 {
     private readonly IServiceProvider _provider;
-    private readonly Resources _i18N;
 
-    public IObservable<string> AppTitle => _i18N.Observe(x => x.FormatMainView_Title(App.Version));
-
-    public MainWindow(Resources i18N, IServiceProvider provider)
+    public MainWindow(IServiceProvider provider)
     {
-        _i18N = i18N;
         _provider = provider;
         InitializeComponent();
 

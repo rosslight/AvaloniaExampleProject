@@ -11,11 +11,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MainView.Greeting" xml:space="preserve">
+  <data name="Welcome.Greeting" xml:space="preserve">
     <value>Willkommen bei Avalonia!</value>
   </data>
-  <data name="MainView.Title" xml:space="preserve">
-    <value>Avalonia Beispielsprojekt {0}</value>
+  <data name="App.Title" xml:space="preserve">
+    <value>Avalonia Beispielsprojekt</value>
   </data>
   <data name="Settings.ChangeLanguage.Description" xml:space="preserve">
     <value>Ändere die Sprache</value>
@@ -43,5 +43,23 @@
   </data>
   <data name="Settings.Theme.Light" xml:space="preserve">
     <value>Hell</value>
+  </data>
+  <data name="Settings.Title" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="Welcome.Title" xml:space="preserve">
+    <value>Zu Hause</value>
+  </data>
+  <data name="Settings.About.Version" xml:space="preserve">
+    <value>Version: {0}</value>
+  </data>
+  <data name="Settings.About.ByCompany" xml:space="preserve">
+    <value>Von rosslight GmbH</value>
+  </data>
+  <data name="Settings.About.Title" xml:space="preserve">
+    <value>Über</value>
+  </data>
+  <data name="Settings.About.LibrariesTitle" xml:space="preserve">
+    <value>Open source Bibliotheken</value>
   </data>
 </root>
