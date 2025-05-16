@@ -1,3 +1,4 @@
+using System.Globalization;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
@@ -5,6 +6,8 @@ using Avalonia.Platform;
 using Avalonia.Threading;
 using AvaloniaExampleProject.Assets;
 using AvaloniaExampleProject.Utilities;
+using AvaloniaExampleProject.ViewModels;
+using Darp.Utils.Configuration;
 using FluentAvalonia.UI.Windowing;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -28,39 +31,41 @@ public sealed partial class MainWindow : AppWindow
         SplashScreen = new MainAppSplashScreen(this);
     }
 
+    internal async Task LoadAsync(CancellationToken cancellationToken)
+    {
+        var configurationService = _provider.GetRequiredService<IConfigurationService<MainConfig>>();
+        var config = await configurationService.LoadConfigurationAsync(cancellationToken);
+        Assets.Resources.Default.Culture = new CultureInfo(config.UserPreferences.SelectedLanguage);
+
+        Dispatcher.UIThread.Invoke(() =>
+        {
+            WindowContent.Content = new MainView(_provider)
+            {
+                ViewModel = _provider.GetRequiredService<MainViewModel>(),
+            };
+        });
+    }
+
     private void ConfigureTitleBar()
     {
         TitleBar.ExtendsContentIntoTitleBar = true;
         TitleBar.TitleBarHitTestType = TitleBarHitTestType.Complex;
         TitleBar.Height = 44;
 
-        // Update background colors
-        _ = Resources
-            .GetResourceObservable("AppBarButtonBackgroundPointerOver")
-            .Subscribe(o =>
-            {
-                if (o is not SolidColorBrush brush)
-                    return;
-                TitleBar.ButtonHoverBackgroundColor = brush.Color;
-            });
-        _ = Resources
-            .GetResourceObservable("AppBarButtonBackgroundPressed")
-            .Subscribe(o =>
-            {
-                if (o is not SolidColorBrush brush)
-                    return;
-                TitleBar.ButtonPressedBackgroundColor = brush.Color;
-            });
+        // Update colors
+        _ = SubscribeToColor("ButtonForegroundDisabled", color => TitleBar.ButtonInactiveForegroundColor = color);
+        _ = SubscribeToColor("AppBarButtonBackgroundPressed", color => TitleBar.ButtonPressedBackgroundColor = color);
+        _ = SubscribeToColor("AppBarButtonBackgroundPointerOver", color => TitleBar.ButtonHoverBackgroundColor = color);
     }
 
-    internal async Task LoadAsync(CancellationToken cancellationToken)
-    {
-        await Task.Delay(100, cancellationToken);
-        Dispatcher.UIThread.Invoke(() =>
-        {
-            WindowContent.Content = _provider.GetRequiredService<MainView>();
-        });
-    }
+    private IDisposable SubscribeToColor(string resourceName, Action<Color> onNext) =>
+        Resources
+            .GetResourceObservable(resourceName)
+            .Subscribe(o =>
+            {
+                if (o is SolidColorBrush brush)
+                    onNext(brush.Color);
+            });
 }
 
 file sealed class MainAppSplashScreen(MainWindow owner) : IApplicationSplashScreen
@@ -71,7 +76,7 @@ file sealed class MainAppSplashScreen(MainWindow owner) : IApplicationSplashScre
     public IImage AppIcon =>
         new Bitmap(AssetLoader.Open(new Uri("avares://AvaloniaExampleProject/Assets/splashscreen.png")));
     public object? SplashScreenContent => null;
-    public int MinimumShowTime => 1000;
+    public int MinimumShowTime => 700;
 
     public async Task RunTasks(CancellationToken cancellationToken)
     {

@@ -11,9 +11,15 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AvaloniaExampleProject;
 
-public sealed class App(IServiceProvider provider) : Application
+public sealed class App : Application
 {
-    private readonly IServiceProvider _provider = provider;
+    private readonly IServiceProvider _provider;
+
+    public App(IServiceProvider provider)
+    {
+        _provider = provider;
+        DataTemplates.Add(new ViewLocator(provider));
+    }
 
     public static string Version { get; } =
         typeof(App).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion
@@ -33,8 +39,6 @@ public sealed class App(IServiceProvider provider) : Application
         i18N.Culture = new CultureInfo("de-de");
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            // Avoid duplicate validations from both Avalonia and the CommunityToolkit.
-            // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
             DisableAvaloniaDataAnnotationValidation();
             desktop.MainWindow = new MainWindow(i18N, _provider);
         }
@@ -42,6 +46,8 @@ public sealed class App(IServiceProvider provider) : Application
         base.OnFrameworkInitializationCompleted();
     }
 
+    /// <summary> Avoid duplicate validations from both Avalonia and the CommunityToolkit. </summary>
+    /// <seealso href="https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins"/>
     [UnconditionalSuppressMessage("Trimming", "IL2026", Justification = "We are only removing validators")]
     private static void DisableAvaloniaDataAnnotationValidation()
     {

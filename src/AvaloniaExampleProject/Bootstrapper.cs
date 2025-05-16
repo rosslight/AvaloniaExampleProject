@@ -1,7 +1,9 @@
-using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
 using AvaloniaExampleProject.Assets;
+using AvaloniaExampleProject.Business;
 using AvaloniaExampleProject.ViewModels;
-using AvaloniaExampleProject.Views;
+using Darp.Utils.Assets;
+using Darp.Utils.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AvaloniaExampleProject;
@@ -9,20 +11,18 @@ namespace AvaloniaExampleProject;
 public static class Bootstrapper
 {
     public static IServiceCollection AddAppServices(this IServiceCollection serviceCollection) =>
-        serviceCollection.AddViewModel<MainView, MainViewModel>().AddLocalization();
-
-    private static IServiceCollection AddViewModel<
-        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] TView,
-        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] TViewModel
-    >(this IServiceCollection serviceCollection)
-        where TView : UserControlBase<TViewModel>, new()
-        where TViewModel : ViewModelBase
-    {
-        return serviceCollection
-            .AddTransient<TViewModel>()
-            .AddTransient<TView>(provider => new TView { ViewModel = provider.GetRequiredService<TViewModel>() });
-    }
+        serviceCollection
+            .AddAppDataAssetsService("AvaloniaExampleProject")
+            .AddConfigurationFile<MainConfig, IAppDataAssetsService>("config.json", JsonContext.Default.MainConfig)
+            .AddSingleton<IThemeService, ThemeService>()
+            .AddTransient<MainViewModel>()
+            .AddTransient<WelcomeViewModel>()
+            .AddTransient<SettingsViewModel>()
+            .AddLocalization();
 
     private static IServiceCollection AddLocalization(this IServiceCollection serviceCollection) =>
         serviceCollection.AddSingleton(Resources.Default);
 }
+
+[JsonSerializable(typeof(MainConfig))]
+public sealed partial class JsonContext : JsonSerializerContext;

@@ -23,4 +23,31 @@
   <data name="MainView.Title" xml:space="preserve">
     <value>Avalonia Example Project {0}</value>
   </data>
+  <data name="Settings.Personalization.Title" xml:space="preserve">
+    <value>Personalization</value>
+  </data>
+  <data name="Settings.ChangeLanguage.Title" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Settings.ChangeLanguage.Description" xml:space="preserve">
+    <value>Change the language</value>
+  </data>
+  <data name="Settings.ChangeTheme.Title" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="Settings.ChangeTheme.Description" xml:space="preserve">
+    <value>Change the theme</value>
+  </data>
+  <data name="Settings.ChangeTheme.SystemSettings" xml:space="preserve">
+    <value>System settings</value>
+  </data>
+  <data name="Settings.Theme.Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="Settings.Theme.Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="Settings.Theme.Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
 </root>

@@ -19,7 +19,7 @@ public abstract class UserControlBase<T> : UserControl
     }
 
     /// <summary> The viewModel of the control. Setting the viewModel sets the DataContext as well. </summary>
-    public T ViewModel
+    public virtual T ViewModel
     {
         get => (T)(base.DataContext ?? throw new ArgumentNullException(nameof(DataContext), DataContextNullMessage));
         [MemberNotNull(nameof(base.DataContext))]
