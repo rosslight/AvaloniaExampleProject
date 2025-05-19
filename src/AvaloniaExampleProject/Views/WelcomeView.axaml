@@ -6,6 +6,8 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="AvaloniaExampleProject.Views.WelcomeView"
              x:DataType="viewModels:WelcomeViewModel">
-    <TextBlock Text="{CompiledBinding I18N.Welcome_Greeting}" />
+    <StackPanel Orientation="Vertical">
+        <TextBlock Text="{CompiledBinding I18N.Welcome_Greeting}" />
+        <Button Content="{CompiledBinding I18N.Welcome_ClickMe}" Command="{CompiledBinding ShowInputDialogCommand}" />
+    </StackPanel>
 </UserControl>
-

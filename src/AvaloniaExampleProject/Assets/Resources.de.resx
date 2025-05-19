@@ -62,4 +62,16 @@
   <data name="Settings.About.LibrariesTitle" xml:space="preserve">
     <value>Open source Bibliotheken</value>
   </data>
+  <data name="Welcome.ClickMe.ResultsTitle" xml:space="preserve">
+    <value>Ergebnis</value>
+  </data>
+  <data name="Welcome.ClickMe.InputTitle" xml:space="preserve">
+    <value>Gebe etwas ein</value>
+  </data>
+  <data name="Welcome.ClickMe.InputMessage" xml:space="preserve">
+    <value>Irgendwas :)</value>
+  </data>
+  <data name="Welcome.ClickMe" xml:space="preserve">
+    <value>Klicke mich!</value>
+  </data>
 </root>

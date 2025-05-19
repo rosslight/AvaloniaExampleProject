@@ -68,4 +68,16 @@
   <data name="Settings.About.Version" xml:space="preserve">
     <value>Version: {0}</value>
   </data>
+  <data name="Welcome.ClickMe" xml:space="preserve">
+    <value>Click me!</value>
+  </data>
+  <data name="Welcome.ClickMe.InputTitle" xml:space="preserve">
+    <value>Enter something</value>
+  </data>
+  <data name="Welcome.ClickMe.InputMessage" xml:space="preserve">
+    <value>Can be anything :)</value>
+  </data>
+  <data name="Welcome.ClickMe.ResultsTitle" xml:space="preserve">
+    <value>Result</value>
+  </data>
 </root>
