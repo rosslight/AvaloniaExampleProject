@@ -1,6 +1,6 @@
 using System.ComponentModel;
+using System.Reactive.Disposables;
 using Avalonia.Styling;
-using AvaloniaExampleProject.Utilities;
 using Darp.Utils.Configuration;
 
 namespace AvaloniaExampleProject.Business;

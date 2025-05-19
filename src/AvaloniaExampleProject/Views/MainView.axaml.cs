@@ -12,7 +12,7 @@ namespace AvaloniaExampleProject.Views;
 public partial class MainView : UserControlBase<MainViewModel>
 {
     private readonly ILogger<MainView> _logger;
-    private readonly NavigationTransitionInfo _transitionInfo = new EntranceNavigationTransitionInfo();
+    private readonly NavigationTransitionInfo _transitionInfo = new SuppressNavigationTransitionInfo();
 
     public MainView(IServiceProvider serviceProvider)
     {

@@ -1,5 +1,5 @@
 using System.ComponentModel;
-using AvaloniaExampleProject.Utilities;
+using System.Reactive.Disposables;
 
 namespace AvaloniaExampleProject.Assets;
 

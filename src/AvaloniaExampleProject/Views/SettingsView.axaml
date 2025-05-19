@@ -58,19 +58,8 @@
                                          Theme="{StaticResource CaptionTextBlockStyle}"/>
                 </controls:SettingsExpander.Footer>
                 <controls:SettingsExpanderItem>
-                    <StackPanel Spacing="8">
-                        <TextBlock Text="{CompiledBinding I18N.Settings_About_LibrariesTitle}" />
-                        <ItemsControl>
-                            <HyperlinkButton Content="Library 1" Padding="0" />
-                            <HyperlinkButton Content="Library 2" Padding="0" />
-                            <HyperlinkButton Content="Library 3" Padding="0" />
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <UniformGrid ColumnSpacing="8" RowSpacing="4"/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
-                    </StackPanel>
+                    <HyperlinkButton Content="{CompiledBinding I18N.Settings_About_LibrariesTitle}" Padding="0"
+                                     Command="{CompiledBinding ShowLicensesDialogCommand}"/>
                 </controls:SettingsExpanderItem>
             </controls:SettingsExpander>
         </StackPanel>

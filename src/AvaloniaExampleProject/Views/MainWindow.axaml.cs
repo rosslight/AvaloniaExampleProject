@@ -5,7 +5,6 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Threading;
 using AvaloniaExampleProject.Assets;
-using AvaloniaExampleProject.Utilities;
 using AvaloniaExampleProject.ViewModels;
 using Darp.Utils.Configuration;
 using FluentAvalonia.UI.Windowing;

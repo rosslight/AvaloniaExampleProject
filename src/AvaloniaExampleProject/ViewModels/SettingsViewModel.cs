@@ -1,9 +1,12 @@
 using System.Globalization;
 using AsyncAwaitBestPractices;
+using Avalonia.Platform;
 using AvaloniaExampleProject.Assets;
 using AvaloniaExampleProject.Business;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Darp.Utils.Configuration;
+using Darp.Utils.Dialog;
 using Microsoft.Extensions.Logging;
 
 namespace AvaloniaExampleProject.ViewModels;
@@ -12,10 +15,12 @@ public sealed partial class SettingsViewModel(
     IThemeService themeService,
     Resources i18N,
     IConfigurationService<MainConfig> configurationService,
+    IDialogService dialogService,
     ILogger<SettingsViewModel> logger
 ) : ViewModelBase
 {
     private readonly IConfigurationService<MainConfig> _configurationService = configurationService;
+    private readonly IDialogService _dialogService = dialogService;
     private readonly ILogger<SettingsViewModel> _logger = logger;
 
     public IThemeService ThemeService { get; } = themeService;
@@ -58,5 +63,15 @@ public sealed partial class SettingsViewModel(
             .SafeFireAndForget(e =>
                 _logger.LogError(e, "Could not save configuration because of {Message}", e.Message)
             );
+    }
+
+    [RelayCommand]
+    private async Task ShowLicensesDialogAsync(CancellationToken cancellationToken)
+    {
+        string title = I18N.Settings_About_LibrariesTitle;
+        await using var contentStream = AssetLoader.Open(new Uri("avares://AvaloniaExampleProject/Assets/NOTICE.md"));
+        using var reader = new StreamReader(contentStream);
+        string content = await reader.ReadToEndAsync(cancellationToken);
+        await _dialogService.CreateMessageBoxDialog(title, content, true).ShowAsync(cancellationToken);
     }
 }
