@@ -18,10 +18,12 @@ public sealed class ThemeService(IConfigurationService<MainConfig> configuration
     public const string DarkTheme = "Dark";
     public const string LightTheme = "Light";
 
+    private readonly IConfigurationService<MainConfig> _configurationService = configurationService;
+
     public string[] AvailableThemes { get; } = [DefaultTheme, DarkTheme, LightTheme];
 
     public IObservable<ThemeVariant> RequestedThemeVariant =>
-        configurationService.Observe(config => ThemeVariantFromString(config.UserPreferences.SelectedTheme));
+        _configurationService.Observe(config => ThemeVariantFromString(config.UserPreferences.SelectedTheme));
 
     private static ThemeVariant ThemeVariantFromString(string? theme) =>
         theme switch
@@ -62,7 +64,7 @@ file sealed class ConfigurationObservable<TConfig, T>(
             if (args.PropertyName is not nameof(IConfigurationService<>.Config))
                 return;
             var newValue = _valueSelector(_configurationService.Config);
-            if (_currentValue?.Equals(newValue) is true)
+            if (!EqualityComparer<T>.Default.Equals(_currentValue, newValue))
                 return;
             observer.OnNext(newValue);
             _currentValue = newValue;
