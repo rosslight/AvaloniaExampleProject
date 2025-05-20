@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace AvaloniaExampleProject.Views;
 
-public partial class MainView : UserControlBase<MainViewModel>
+public sealed partial class MainView : UserControlBase<MainViewModel>
 {
     private readonly ILogger<MainView> _logger;
     private readonly NavigationTransitionInfo _transitionInfo = new SuppressNavigationTransitionInfo();

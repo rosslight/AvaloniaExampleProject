@@ -4,7 +4,7 @@ using AvaloniaExampleProject.ViewModels;
 
 namespace AvaloniaExampleProject.Views;
 
-public partial class SettingsView : UserControlBase<SettingsViewModel>
+public sealed partial class SettingsView : UserControlBase<SettingsViewModel>
 {
     public SettingsView()
     {
