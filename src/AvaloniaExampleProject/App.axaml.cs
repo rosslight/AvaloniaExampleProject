@@ -21,7 +21,7 @@ public sealed class App : Application
     public App(IServiceProvider provider)
     {
         _provider = provider;
-        DataTemplates.Add(new ViewLocator(provider));
+        DataTemplates.Add(new ViewLocator());
         if (IsDesignMode)
             ServiceProvider = provider;
     }

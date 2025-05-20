@@ -9,7 +9,7 @@ namespace AvaloniaExampleProject;
 /// <summary>
 /// A ViewLocator class. When added to the <see cref="Application.DataTemplates"/>, ViewModels are resolved to their corresponding view
 /// </summary>
-public sealed class ViewLocator(IServiceProvider serviceProvider) : IDataTemplate
+public sealed class ViewLocator : IDataTemplate
 {
     public Control Build(object? param)
     {
