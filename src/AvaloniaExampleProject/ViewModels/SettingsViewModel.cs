@@ -3,6 +3,7 @@ using AsyncAwaitBestPractices;
 using Avalonia.Platform;
 using AvaloniaExampleProject.Assets;
 using AvaloniaExampleProject.Business;
+using AvaloniaExampleProject.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Darp.Utils.Configuration;

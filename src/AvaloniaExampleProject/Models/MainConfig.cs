@@ -1,4 +1,4 @@
-namespace AvaloniaExampleProject;
+namespace AvaloniaExampleProject.Models;
 
 public sealed record MainConfig(UserPreferencesConfig? UserPreferences = null)
 {

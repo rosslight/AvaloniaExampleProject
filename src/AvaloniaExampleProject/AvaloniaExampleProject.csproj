@@ -30,7 +30,4 @@
   <ItemGroup>
     <EmbeddedResource Update="Assets/Resources.resx" Public="true" EmitFormatMethods="true" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
 </Project>

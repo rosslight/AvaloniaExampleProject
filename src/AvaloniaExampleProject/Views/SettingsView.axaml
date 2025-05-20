@@ -6,9 +6,11 @@
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
              xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
              xmlns:views="clr-namespace:AvaloniaExampleProject.Views"
+             xmlns:models="clr-namespace:AvaloniaExampleProject.Models"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="AvaloniaExampleProject.Views.SettingsView"
-             x:DataType="vm:SettingsViewModel">
+             x:DataType="vm:SettingsViewModel"
+             Design.DataContext="{x:Static models:DesignData.SettingsViewModel}">
     <UserControl.Resources>
         <system:Double x:Key="SettingsHeaderIconWidth">48</system:Double>
         <system:Double x:Key="SettingsHeaderIconFontSize">24</system:Double>

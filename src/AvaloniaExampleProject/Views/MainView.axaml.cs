@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using AvaloniaExampleProject.Models;
 using AvaloniaExampleProject.ViewModels;
 using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Media.Animation;
@@ -20,6 +21,10 @@ public partial class MainView : UserControlBase<MainViewModel>
         InitializeComponent();
         MainFrame.NavigationPageFactory = new DependencyInjectionPageFactory(serviceProvider);
     }
+
+    [Obsolete("Should by used by designer only!")]
+    public MainView()
+        : this(DesignData.ServiceProvider) { }
 
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {

@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
@@ -21,7 +22,15 @@ public sealed class App : Application
     {
         _provider = provider;
         DataTemplates.Add(new ViewLocator(provider));
+        if (IsDesignMode)
+            ServiceProvider = provider;
     }
+
+    public static bool IsDesignMode => Design.IsDesignMode;
+
+    /// <summary> The service provider which is injected on app start if <see cref="Design.IsDesignMode"/> is true </summary>
+    [MemberNotNullWhen(true, nameof(IsDesignMode))]
+    public static IServiceProvider? ServiceProvider { get; private set; }
 
     public static string Version { get; } =
         typeof(App).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion

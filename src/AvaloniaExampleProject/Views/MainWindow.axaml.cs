@@ -5,6 +5,7 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Threading;
 using AvaloniaExampleProject.Assets;
+using AvaloniaExampleProject.Models;
 using AvaloniaExampleProject.ViewModels;
 using Darp.Utils.Configuration;
 using FluentAvalonia.UI.Windowing;
@@ -27,6 +28,10 @@ public sealed partial class MainWindow : AppWindow
 
         SplashScreen = new MainAppSplashScreen(this);
     }
+
+    [Obsolete("Should by used by designer only!")]
+    public MainWindow()
+        : this(DesignData.ServiceProvider) { }
 
     internal async Task LoadAsync(CancellationToken cancellationToken)
     {

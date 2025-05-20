@@ -1,5 +1,6 @@
 using AvaloniaExampleProject.Assets;
 using AvaloniaExampleProject.Business;
+using AvaloniaExampleProject.Models;
 using AvaloniaExampleProject.ViewModels;
 using Darp.Utils.Assets;
 using Darp.Utils.Configuration;
