@@ -14,15 +14,17 @@ public static class Bootstrapper
 {
     public static IServiceCollection AddAppServices(this IServiceCollection serviceCollection) =>
         serviceCollection
+            // Configure core services
             .AddSingleton<IDialogService, AvaloniaDialogService>()
             .AddAppDataAssetsService("AvaloniaExampleProject")
             .AddConfigurationFile<MainConfig, IAppDataAssetsService>("config.json", JsonContext.Default.MainConfig)
+            .AddLocalization()
             .AddSingleton<IThemeService, ThemeService>()
+            // Configure ViewModels
             .AddTransient<MainWindowViewModel>()
             .AddTransient<MainViewModel>()
             .AddTransient<WelcomeViewModel>()
-            .AddTransient<SettingsViewModel>()
-            .AddLocalization();
+            .AddTransient<SettingsViewModel>();
 
     private static IServiceCollection AddLocalization(this IServiceCollection serviceCollection) =>
         serviceCollection.AddSingleton(Resources.Default);

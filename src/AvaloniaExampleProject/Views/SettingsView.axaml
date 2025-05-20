@@ -31,7 +31,7 @@
                     <controls:SettingsExpander.Footer>
                         <ComboBox HorizontalAlignment="Center" VerticalAlignment="Center"
                                   MinWidth="{StaticResource SettingsViewContentWidth}"
-                                  ItemsSource="{CompiledBinding AvailableLanguages}"
+                                  ItemsSource="{CompiledBinding I18N.AvailableLanguages}"
                                   SelectedValue="{CompiledBinding SelectedLanguage}"/>
                     </controls:SettingsExpander.Footer>
                 </controls:SettingsExpander>

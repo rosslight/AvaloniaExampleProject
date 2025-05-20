@@ -7,6 +7,8 @@ public partial class Resources : INotifyPropertyChanged
 {
     private readonly PropertyChangedEventArgs _cultureChangedEventArgs = new(null);
 
+    public static string[] AvailableLanguages { get; } = ["en-EN", "de-DE"];
+
     private Resources()
     {
         CultureChanged += (_, _) => PropertyChanged?.Invoke(this, _cultureChangedEventArgs);

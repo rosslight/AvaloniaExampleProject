@@ -28,8 +28,6 @@ public sealed partial class SettingsViewModel(
     public Resources I18N { get; } = i18N;
     public IObservable<string> AppVersion => I18N.Observe(x => x.FormatSettings_About_Version(App.Version));
 
-    public static string[] AvailableLanguages { get; } = ["en-EN", "de-DE"];
-
     [ObservableProperty]
     public partial string SelectedLanguage { get; set; } = configurationService.Config.UserPreferences.SelectedLanguage;
 
