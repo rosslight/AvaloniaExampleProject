@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  BASE_NAME: "AvaloniaExampleProject"
+  PROJECT_PATH: "src/AvaloniaExampleProject.Desktop/AvaloniaExampleProject.Desktop.csproj"
+  INSTALLER_PATH: "src/AvaloniaExampleProject.Installer/AvaloniaExampleProject.Installer.csproj"
+
 jobs:
   build_test:
     runs-on: [self-hosted, ubuntu-latest]
@@ -13,10 +18,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
 
-      - name: Restore dependencies
-        run: dotnet restore
-      - name: Build
-        run: dotnet build --no-restore --configuration Release /p:TreatWarningsAsErrors=true
+      - name: Restore dependencies and build solution
+        run: dotnet restore && dotnet build --no-restore --configuration Release /p:TreatWarningsAsErrors=true
       - name: Test
         run: dotnet test --no-build --configuration Release
 
@@ -24,3 +27,60 @@ jobs:
         run: |
           dotnet tool restore
           dotnet csharpier check .
+
+  get_semantic_release_version:
+    uses: rosslight/reusable-actions/.github/workflows/get-semantic-release-version.yml@main
+
+  publish_windows_aot:
+    if: needs.get_semantic_release_version.outputs.new_release_published == 'true'
+    runs-on: [self-hosted, windows-latest]
+    needs: [get_semantic_release_version]
+    outputs:
+      cache_key: ${{ steps.publish.outputs.cache_key }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: rosslight/reusable-actions/publish-msix@main
+        id: publish
+        with:
+          dotnet_version: 9.0.x
+          project_path: ${{ env.PROJECT_PATH }}
+          installer_project_path: ${{ env.INSTALLER_PATH }}
+          release_version: ${{ needs.get_semantic_release_version.outputs.new_release_version }}
+          publish_path: './publish-msix'
+          msix_platform: 'x64'
+          file_name: '${{ env.BASE_NAME }}_${{ needs.get_semantic_release_version.outputs.new_release_version }}_x64'
+          sign_with_trusted_signing: true
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          AZURE_ENDPOINT: https://weu.codesigning.azure.net
+          AZURE_TRUSTED_SIGNING_ACCOUNT_NAME: rosslight
+          AZURE_CERTIFICATE_PROFILE_NAME: PublicKeyProfile
+
+  release:
+    if: needs.get_semantic_release_version.outputs.new_release_published == 'true'
+    runs-on: ubuntu-latest
+    name: Create release
+    needs: [ build_test, publish_windows_aot ]
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Load cached msix
+        uses: actions/cache/restore@v4
+        with:
+          path: './publish-msix'
+          key: ${{ needs.publish_msix.outputs.cache_key }}
+          fail-on-cache-miss: true
+          enableCrossOsArchive: true
+
+      - name: Semantic Release
+        id: release
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          extra_plugins: |
+            @semantic-release/commit-analyzer
+            @semantic-release/release-notes-generator
+            @semantic-release/github
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
