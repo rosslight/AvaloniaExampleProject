@@ -29,10 +29,11 @@ jobs:
           dotnet csharpier check .
 
   get_semantic_release_version:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     uses: rosslight/reusable-actions/.github/workflows/get-semantic-release-version.yml@main
 
   publish_windows_aot:
-    if: needs.get_semantic_release_version.outputs.new_release_published == 'true'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.get_semantic_release_version.outputs.new_release_published == 'true'
     runs-on: [self-hosted, windows-latest]
     needs: [get_semantic_release_version]
     outputs:
@@ -58,7 +59,7 @@ jobs:
           AZURE_CERTIFICATE_PROFILE_NAME: PublicKeyProfile
 
   release:
-    if: needs.get_semantic_release_version.outputs.new_release_published == 'true'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.get_semantic_release_version.outputs.new_release_published == 'true'
     runs-on: ubuntu-latest
     name: Create release
     needs: [ build_test, publish_windows_aot ]
