@@ -31,6 +31,7 @@
     <EntryPointProjectUniqueName>..\AvaloniaExampleProject.Desktop\AvaloniaExampleProject.Desktop.csproj</EntryPointProjectUniqueName>
     <AppInstallerUri>http://localhost/MyPackageEndpoint</AppInstallerUri>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+	<PublishAot>true</PublishAot>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <AppxBundle>Always</AppxBundle>
