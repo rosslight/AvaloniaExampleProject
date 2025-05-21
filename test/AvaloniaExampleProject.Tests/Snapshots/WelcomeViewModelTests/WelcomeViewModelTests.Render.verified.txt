@@ -1,0 +1,22 @@
+﻿{
+  Type: WelcomeView,
+  Content: {
+    Type: StackPanel,
+    Orientation: Vertical,
+    Children: [
+      {
+        Type: TextBlock,
+        Text: Welcome to Avalonia!
+      },
+      {
+        Type: Button,
+        Command: WelcomeViewModel.ShowInputDialog(CancellationToken cancellationToken),
+        Content: Click me!
+      }
+    ]
+  },
+  DataContext: {
+    I18N: {Scrubbed},
+    ShowInputDialogCommand: WelcomeViewModel.ShowInputDialog(CancellationToken cancellationToken)
+  }
+}

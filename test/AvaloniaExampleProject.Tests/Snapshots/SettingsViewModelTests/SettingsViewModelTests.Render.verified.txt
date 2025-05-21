@@ -1,0 +1,62 @@
+﻿{
+  Type: SettingsView,
+  Content: {
+    Type: ScrollViewer,
+    VerticalScrollBarVisibility: Auto,
+    Content: {
+      Type: StackPanel,
+      Spacing: 8.0,
+      MaxWidth: 1024.0,
+      Margin: 0,0,0,48,
+      Children: [
+        {
+          Type: TextBlock,
+          Text: Personalization,
+          Theme: {
+            Type: ControlTheme
+          }
+        },
+        {
+          Type: StackPanel,
+          Spacing: 4.0,
+          Children: [
+            {
+              Type: SettingsExpander,
+              Header: Language
+            },
+            {
+              Type: SettingsExpander,
+              Header: Theme
+            }
+          ]
+        },
+        {
+          Type: TextBlock,
+          Text: About,
+          Theme: {
+            Type: ControlTheme
+          }
+        },
+        {
+          Type: SettingsExpander,
+          Header: Avalonia Example Project
+        }
+      ]
+    }
+  },
+  DataContext: {
+    ThemeService: {
+      AvailableThemes: [
+        Default,
+        Dark,
+        Light
+      ],
+      RequestedThemeVariant: {}
+    },
+    I18N: {Scrubbed},
+    AppVersion: {},
+    SelectedLanguage: en-EN,
+    SelectedTheme: Default,
+    ShowLicensesDialogCommand: SettingsViewModel.ShowLicensesDialogAsync(CancellationToken cancellationToken)
+  }
+}

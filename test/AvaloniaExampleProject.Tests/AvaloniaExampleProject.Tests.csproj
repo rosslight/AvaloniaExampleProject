@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <DefineConstants>$(DefineConstants);UNIT_TEST</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Headless.XUnit" />
+    <PackageReference Include="Avalonia.Skia" />
+    <PackageReference Include="Avalonia.Themes.Fluent" />
+    <PackageReference Include="coverlet.collector" />
+    <PackageReference Include="MartinCostello.Logging.XUnit" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="NSubstitute" />
+    <PackageReference Include="NSubstitute.Analyzers.CSharp">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Verify.Avalonia" />
+    <PackageReference Include="Verify.CommunityToolkit.Mvvm" />
+    <PackageReference Include="Verify.Xunit" />
+    <!-- Upgrade to v3 when https://github.com/AvaloniaUI/Avalonia/issues/18356 is resolved -->
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AvaloniaExampleProject\AvaloniaExampleProject.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Snapshots\" />
+  </ItemGroup>
+</Project>

@@ -1,6 +1,9 @@
 <Solution>
   <Folder Name="/src/">
-    <Project Path="src/AvaloniaExampleProject.Desktop\AvaloniaExampleProject.Desktop.csproj"/>
-    <Project Path="src/AvaloniaExampleProject\AvaloniaExampleProject.csproj"/>
+    <Project Path="src/AvaloniaExampleProject.Desktop\AvaloniaExampleProject.Desktop.csproj" />
+    <Project Path="src/AvaloniaExampleProject\AvaloniaExampleProject.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test\AvaloniaExampleProject.Tests\AvaloniaExampleProject.Tests.csproj" Type="Classic C#" />
   </Folder>
 </Solution>

@@ -152,3 +152,16 @@ charset = utf-8
 # Xml files
 [*.{xml,stylecop,resx,ruleset,manifest,props,targets,config,nuspec}]
 indent_size = 2
+
+# Verify settings
+[*.cs]
+resharper_return_value_of_pure_method_is_not_used_highlighting = error
+
+[*.{received,verified}.{json,txt,xml}]
+charset = "utf-8-bom"
+end_of_line = lf
+indent_size = unset
+indent_style = unset
+insert_final_newline = false
+tab_width = unset
+trim_trailing_whitespace = false
