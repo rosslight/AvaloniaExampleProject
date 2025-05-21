@@ -1,13 +1,11 @@
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-using AvaloniaExampleProject.Assets;
 using AvaloniaExampleProject.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -39,19 +37,17 @@ public sealed class App : Application
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
-#if DEBUG
-        this.AttachDeveloperTools(options =>
-            options.AddMicrosoftLoggerObservable(_provider.GetRequiredService<ILoggerFactory>())
-        );
-#endif
     }
 
     public override void OnFrameworkInitializationCompleted()
     {
-        var i18N = _provider.GetRequiredService<Resources>();
-        i18N.Culture = new CultureInfo("de-de");
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+#if DEBUG
+            this.AttachDeveloperTools(options =>
+                options.AddMicrosoftLoggerObservable(_provider.GetRequiredService<ILoggerFactory>())
+            );
+#endif
             DisableAvaloniaDataAnnotationValidation();
             desktop.MainWindow = new MainWindow(_provider);
         }
