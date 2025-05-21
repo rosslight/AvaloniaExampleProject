@@ -43,7 +43,7 @@ jobs:
       - uses: rosslight/reusable-actions/publish-msix@main
         id: publish
         with:
-          dotnet_version: 9.0.x
+          dotnet_version: 9.0.203
           project_path: ${{ env.PROJECT_PATH }}
           installer_project_path: ${{ env.INSTALLER_PATH }}
           release_version: ${{ needs.get_semantic_release_version.outputs.new_release_version }}
