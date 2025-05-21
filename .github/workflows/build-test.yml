@@ -13,7 +13,7 @@ env:
 
 jobs:
   build_test:
-    runs-on: [self-hosted, ubuntu-latest]
+    runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
@@ -34,7 +34,7 @@ jobs:
 
   publish_windows_aot:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.get_semantic_release_version.outputs.new_release_published == 'true'
-    runs-on: [self-hosted, windows-latest]
+    runs-on: [windows-latest]
     needs: [get_semantic_release_version]
     outputs:
       cache_key: ${{ steps.publish.outputs.cache_key }}
