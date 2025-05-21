@@ -71,7 +71,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: './publish-msix'
-          key: ${{ needs.publish_msix.outputs.cache_key }}
+          key: ${{ needs.publish_windows_aot.outputs.cache_key }}
           fail-on-cache-miss: true
           enableCrossOsArchive: true
 
