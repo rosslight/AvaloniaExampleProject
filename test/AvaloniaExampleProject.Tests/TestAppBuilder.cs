@@ -65,7 +65,6 @@ public class TestAppBuilder
         Services = provider;
         return AppBuilder
             .Configure(() => new App(provider))
-            .UseSkia()
             .UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false })
             .AfterSetup(builder =>
             {

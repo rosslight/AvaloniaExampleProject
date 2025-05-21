@@ -2,11 +2,9 @@
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <IsPackable>false</IsPackable>
-    <DefineConstants>$(DefineConstants);UNIT_TEST</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia.Headless.XUnit" />
-    <PackageReference Include="Avalonia.Skia" />
     <PackageReference Include="Avalonia.Themes.Fluent" />
     <PackageReference Include="coverlet.collector" />
     <PackageReference Include="MartinCostello.Logging.XUnit" />
