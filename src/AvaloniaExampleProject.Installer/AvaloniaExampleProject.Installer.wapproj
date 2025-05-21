@@ -104,8 +104,7 @@
   </ItemGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />
   <ItemGroup>
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.Net.Sdk.Compilers.Toolset" Version="9.0.300" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AvaloniaExampleProject.Desktop\AvaloniaExampleProject.Desktop.csproj" />
