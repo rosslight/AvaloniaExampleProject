@@ -18,7 +18,7 @@ jobs:
       - name: Build
         run: dotnet build --no-restore --configuration Release /p:TreatWarningsAsErrors=true
       - name: Test
-        run: dotnet test --no-build --configuration Release
+        run: dotnet test --configuration Release
 
       - name: Check formatting using csharpier
         run: |
