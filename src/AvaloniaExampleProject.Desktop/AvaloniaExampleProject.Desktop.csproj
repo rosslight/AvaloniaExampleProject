@@ -4,7 +4,6 @@
     <TargetFramework>net9.0</TargetFramework>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <IsAotCompatible>true</IsAotCompatible>
-    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
   </PropertyGroup>
   <!-- Previewer does not work with NativeAot: https://github.com/AvaloniaUI/Avalonia/issues/13760 -->
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'!='Debug|AnyCPU'">
