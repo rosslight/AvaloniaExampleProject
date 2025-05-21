@@ -9,7 +9,7 @@ on:
 env:
   BASE_NAME: "AvaloniaExampleProject"
   PROJECT_PATH: "src/AvaloniaExampleProject.Desktop/AvaloniaExampleProject.Desktop.csproj"
-  INSTALLER_PATH: "src/AvaloniaExampleProject.Installer/AvaloniaExampleProject.Installer.csproj"
+  INSTALLER_PATH: "src/AvaloniaExampleProject.Installer/AvaloniaExampleProject.Installer.wapproj"
 
 jobs:
   build_test:
