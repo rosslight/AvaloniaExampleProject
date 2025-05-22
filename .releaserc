@@ -10,7 +10,8 @@
             "@semantic-release/github",
             {
                 "assets": [
-                    { "path": "publish-msix/*.msix" },
+                    { "path": "publish/*.msix" },
+                    { "path": "publish/*.zip" },
                 ]
             }
         ]
