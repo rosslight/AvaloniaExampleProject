@@ -131,7 +131,7 @@ jobs:
           files-folder-recurse: true
           files-folder: ${{ env.ARTIFACT_PATH_MSIX }}
 
-      - name: Re-Zip signed directories
+      - name: Zip signed directories
         run: |
           Get-ChildItem -Path ${{ env.PUBLISH_PATH }} -Directory | ForEach-Object {
             $zipFile = Join-Path ${{ env.PUBLISH_PATH }} ($_.Name + '.zip')
