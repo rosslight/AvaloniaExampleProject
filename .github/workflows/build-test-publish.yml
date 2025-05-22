@@ -9,6 +9,7 @@ on:
 env:
 # Application-specific settings
   BASE_NAME: "AvaloniaExampleProject"
+  SOLUTION_NAME: "AvaloniaExampleProject.slnx"
   PROJECT_PATH: "src/AvaloniaExampleProject.Desktop/AvaloniaExampleProject.Desktop.csproj"
   INSTALLER_PATH: "src/AvaloniaExampleProject.Installer/AvaloniaExampleProject.Installer.wapproj"
 # Signing provider-specific settings. Make sure to set AZURE_TENANT_ID, AZURE_CLIENT_ID, AZURE_CLIENT_SECRET in the secrets
@@ -27,9 +28,9 @@ jobs:
       - uses: actions/setup-dotnet@v4
 
       - name: Restore dependencies and build solution
-        run: dotnet build AvaloniaExampleProject.slnx --configuration Release /p:TreatWarningsAsErrors=true
+        run: dotnet build ${{ env.SOLUTION_NAME }} --configuration Release /p:TreatWarningsAsErrors=true
       - name: Test
-        run: dotnet test --no-build --configuration Release
+        run: dotnet test ${{ env.SOLUTION_NAME }} --no-build --configuration Release
 
       - name: Check formatting using csharpier
         run: |
