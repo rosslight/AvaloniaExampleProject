@@ -3,9 +3,13 @@
     <Exec 
       Command="git describe --long --always --exclude=* --abbrev=8"
       ConsoleToMSBuild="True"
-      IgnoreExitCode="False"
+      ContinueOnError="True"
       >
       <Output PropertyName="SourceRevisionId" TaskParameter="ConsoleOutput"/>
+      <Output PropertyName="GitExitCode" TaskParameter="ExitCode"/>
     </Exec>
+    <PropertyGroup>
+      <SourceRevisionId Condition="'$(GitExitCode)' != '0' or '$(SourceRevisionId)' == ''">unknown</SourceRevisionId>
+    </PropertyGroup>
   </Target>
 </Project>
