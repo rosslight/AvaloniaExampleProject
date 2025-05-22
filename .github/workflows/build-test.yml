@@ -119,7 +119,7 @@ jobs:
           dir ${{ env.PUBLISH_PATH }}
         shell: pwsh
 
-      - name: Sign .msix files with Trusted Signing
+      - name: Sign files with Trusted Signing
         uses: azure/trusted-signing-action@v0.4.0
         with:
           azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
