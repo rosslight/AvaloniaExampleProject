@@ -70,7 +70,7 @@ jobs:
       cache_key: ${{ steps.publish.outputs.cache_key }}
     steps:
       - uses: actions/checkout@v4
-      - uses: rosslight/reusable-actions/build-msix@simplified-actions
+      - uses: rosslight/reusable-actions/publish-msix@simplified-actions
         id: build
         with:
           project_path: ${{ env.PROJECT_PATH }}
