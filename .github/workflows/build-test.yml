@@ -7,15 +7,15 @@ on:
     branches: [ main ]
 
 env:
-# Application specific settings
+# Application-specific settings
   BASE_NAME: "AvaloniaExampleProject"
   PROJECT_PATH: "src/AvaloniaExampleProject.Desktop/AvaloniaExampleProject.Desktop.csproj"
   INSTALLER_PATH: "src/AvaloniaExampleProject.Installer/AvaloniaExampleProject.Installer.wapproj"
-# Signing provider specific settings. Make sure to set AZURE_TENANT_ID, AZURE_CLIENT_ID, AZURE_CLIENT_SECRET in the secrets
+# Signing provider-specific settings. Make sure to set AZURE_TENANT_ID, AZURE_CLIENT_ID, AZURE_CLIENT_SECRET in the secrets
   AZURE_ENDPOINT: https://weu.codesigning.azure.net
   AZURE_TRUSTED_SIGNING_ACCOUNT_NAME: rosslight
   AZURE_CERTIFICATE_PROFILE_NAME: PublicKeyProfile
-# Workflow specific settings. Only change if there are conflicting filepaths
+# Workflow-specific settings. Only change if there are conflicting filepaths
   ARTIFACT_PATH_EXE: "./publish_exe"
   ARTIFACT_PATH_MSIX: "./publish_msix"
 
@@ -38,7 +38,7 @@ jobs:
 
   get_semantic_release_version:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    uses: rosslight/reusable-actions/.github/workflows/get-semantic-release-version.yml@main
+    uses: rosslight/reusable-actions/.github/workflows/get-semantic-release-version.yml@v2.0.0
 
   publish_exe:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.get_semantic_release_version.outputs.new_release_published == 'true'
@@ -50,7 +50,7 @@ jobs:
       cache_key: ${{ steps.publish.outputs.cache_key }}
     steps:
       - uses: actions/checkout@v4
-      - uses: rosslight/reusable-actions/publish-exe@simplified-actions
+      - uses: rosslight/reusable-actions/publish-exe@v2.0.0
         id: publish
         with:
           project_path: ${{ env.PROJECT_PATH }}
@@ -68,7 +68,7 @@ jobs:
       cache_key: ${{ steps.publish.outputs.cache_key }}
     steps:
       - uses: actions/checkout@v4
-      - uses: rosslight/reusable-actions/publish-msix@simplified-actions
+      - uses: rosslight/reusable-actions/publish-msix@v2.0.0
         id: publish
         with:
           project_path: ${{ env.PROJECT_PATH }}
