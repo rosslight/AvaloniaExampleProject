@@ -84,6 +84,8 @@ jobs:
     runs-on: windows-latest
     name: Create release
     needs: [ build_test, publish_exe, publish_msix ]
+    env:
+      PUBLISH_PATH: './publish'
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -106,21 +108,36 @@ jobs:
 
       - name: Move artifacts to be signed
         run: |
-          mkdir ./publish
-          mv ${{ env.ARTIFACT_PATH_EXE }}/*.zip ./publish
-          mv ${{ env.ARTIFACT_PATH_MSIX }}/*.msix ./publish
-          dir ./publish
+          mkdir ${{ env.PUBLISH_PATH }}
+          # Unzip all zip files. Trusted signing throws errors
+          Get-ChildItem -Path ${{ env.ARTIFACT_PATH_EXE }} -Filter '*.zip' | ForEach-Object {
+            $destDir  = Join-Path ${{ env.PUBLISH_PATH }} $_.BaseName
+            Expand-Archive -LiteralPath $_.FullName -DestinationPath $destDir -Force
+            dir ${{ env.PUBLISH_PATH }}
+          }
+          mv ${{ env.ARTIFACT_PATH_MSIX }}/*.msix ${{ env.PUBLISH_PATH }}
+          dir ${{ env.PUBLISH_PATH }}
+        shell: pwsh
 
-      #- name: Sign files with Trusted Signing
-      #  uses: azure/trusted-signing-action@v0.4.0
-      #  with:
-      #    azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-      #    azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
-      #    azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
-      #    endpoint: ${{ env.AZURE_ENDPOINT }}
-      #    trusted-signing-account-name: ${{ env.AZURE_TRUSTED_SIGNING_ACCOUNT_NAME }}
-      #    certificate-profile-name: ${{ env.AZURE_CERTIFICATE_PROFILE_NAME }}
-      #    files-folder: './publish'
+      - name: Sign .msix files with Trusted Signing
+        uses: azure/trusted-signing-action@v0.4.0
+        with:
+          azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+          endpoint: ${{ env.AZURE_ENDPOINT }}
+          trusted-signing-account-name: ${{ env.AZURE_TRUSTED_SIGNING_ACCOUNT_NAME }}
+          certificate-profile-name: ${{ env.AZURE_CERTIFICATE_PROFILE_NAME }}
+          files-folder-recurse: true
+          files-folder: ${{ env.ARTIFACT_PATH_MSIX }}
+
+      - name: Zip signed directories
+        run: |
+          Get-ChildItem -Path ${{ env.PUBLISH_PATH }} -Directory | ForEach-Object {
+            $zipFile = Join-Path ${{ env.PUBLISH_PATH }} ($_.Name + '.zip')
+            Compress-Archive -Path (Join-Path $_.FullName '*') -DestinationPath $zipFile -Force
+          }
+        shell: pwsh
 
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v4
