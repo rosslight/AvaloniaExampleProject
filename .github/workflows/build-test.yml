@@ -38,7 +38,7 @@ jobs:
 
   get_semantic_release_version:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    uses: rosslight/reusable-actions/.github/workflows/get-semantic-release-version.yml@v2.0.0
+    uses: rosslight/reusable-actions/.github/workflows/get-semantic-release-version.yml@v2.0.1
 
   publish_exe:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.get_semantic_release_version.outputs.new_release_published == 'true'
