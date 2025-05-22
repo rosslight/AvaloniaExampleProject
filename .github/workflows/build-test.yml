@@ -109,17 +109,18 @@ jobs:
           mkdir ./publish
           mv ${{ env.ARTIFACT_PATH_EXE }}/*.zip ./publish
           mv ${{ env.ARTIFACT_PATH_MSIX }}/*.msix ./publish
+          dir ./publish
 
-      - name: Sign files with Trusted Signing
-        uses: azure/trusted-signing-action@v0.4.0
-        with:
-          azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
-          endpoint: ${{ env.AZURE_ENDPOINT }}
-          trusted-signing-account-name: ${{ env.AZURE_TRUSTED_SIGNING_ACCOUNT_NAME }}
-          certificate-profile-name: ${{ env.AZURE_CERTIFICATE_PROFILE_NAME }}
-          files-folder: './publish'
+      #- name: Sign files with Trusted Signing
+      #  uses: azure/trusted-signing-action@v0.4.0
+      #  with:
+      #    azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+      #    azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
+      #    azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+      #    endpoint: ${{ env.AZURE_ENDPOINT }}
+      #    trusted-signing-account-name: ${{ env.AZURE_TRUSTED_SIGNING_ACCOUNT_NAME }}
+      #    certificate-profile-name: ${{ env.AZURE_CERTIFICATE_PROFILE_NAME }}
+      #    files-folder: './publish'
 
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v4
