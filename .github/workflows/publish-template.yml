@@ -15,8 +15,8 @@ jobs:
       - name: Extract version from tag
         id: get_version
         run: |
-          VERSION=${GITHUB_REF#refs/tags/}
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          TAG=${GITHUB_REF#refs/tags/}
+          echo "version=${TAG#v}" >> $GITHUB_OUTPUT
 
       - uses: actions/setup-dotnet@v4
       - name: Pack template package
