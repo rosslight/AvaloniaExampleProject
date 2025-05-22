@@ -55,6 +55,7 @@ jobs:
           dotnet_build_args: '-r win-x64 /p:EnableWindowsTargeting=true'
           release_version: ${{ needs.get_semantic_release_version.outputs.new_release_version }}
           artifact_directory: ${{ env.ARTIFACT_PATH_EXE }}
+          dotnet_publish_args: '-r win-x64 /p:EnableWindowsTargeting=true'
           file_name: '${{ env.BASE_NAME }}_${{ needs.get_semantic_release_version.outputs.new_release_version }}_x64'
 
   publish_msix:
