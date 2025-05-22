@@ -1,4 +1,4 @@
-name: CI Build and test
+name: Build, test, release
 
 on:
   push:
@@ -7,13 +7,21 @@ on:
     branches: [ main ]
 
 env:
+# Application specific settings
   BASE_NAME: "AvaloniaExampleProject"
   PROJECT_PATH: "src/AvaloniaExampleProject.Desktop/AvaloniaExampleProject.Desktop.csproj"
   INSTALLER_PATH: "src/AvaloniaExampleProject.Installer/AvaloniaExampleProject.Installer.wapproj"
+# Signing provider specific settings. Make sure to set AZURE_TENANT_ID, AZURE_CLIENT_ID, AZURE_CLIENT_SECRET in the secrets
+  AZURE_ENDPOINT: https://weu.codesigning.azure.net
+  AZURE_TRUSTED_SIGNING_ACCOUNT_NAME: rosslight
+  AZURE_CERTIFICATE_PROFILE_NAME: PublicKeyProfile
+# Workflow specific settings. Only change if there are conflicting filepaths
+  ARTIFACT_PATH_EXE: "./publish_exe"
+  ARTIFACT_PATH_MSIX: "./publish_msix"
 
 jobs:
   build_test:
-    runs-on: [ubuntu-latest]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
@@ -32,37 +40,52 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     uses: rosslight/reusable-actions/.github/workflows/get-semantic-release-version.yml@main
 
-  publish_windows_aot:
+#   publish_exe:
+#     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.get_semantic_release_version.outputs.new_release_published == 'true'
+#     runs-on: ubuntu-latest
+#     needs: [get_semantic_release_version]
+#     outputs:
+#       cache_key: ${{ steps.cache_exe.outputs.cache_key }}
+#     steps:
+#       - uses: actions/checkout@v4
+#       - uses: rosslight/reusable-actions/publish-exe@v1
+#         with:
+#           project_path: ${{ env.PROJECT_PATH }}
+#           dotnet_build_args: '-r win-x64 /p:EnableWindowsTargeting=true'
+#           release_version: ${{ needs.get_semantic_release_version.outputs.new_release_version }}
+#           # dotnet_publish_args: ''
+#           artifact_directory: ${{ env.ARTIFACT_PATH_EXE }}
+#           file_name: '${{ env.BASE_NAME }}_${{ needs.get_semantic_release_version.outputs.new_release_version }}_x64'
+#       - name: Cache artifact directory
+#       - uses: rosslight/reusable-actions/cache@v1
+#         id: cache_exe
+#         with:
+#           path: ${{ env.ARTIFACT_PATH_EXE }}
+
+  publish_msix:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.get_semantic_release_version.outputs.new_release_published == 'true'
-    runs-on: [windows-latest]
+    runs-on: windows-latest
     needs: [get_semantic_release_version]
     outputs:
       cache_key: ${{ steps.publish.outputs.cache_key }}
     steps:
       - uses: actions/checkout@v4
-      - uses: rosslight/reusable-actions/publish-msix@main
-        id: publish
+      - uses: rosslight/reusable-actions/build-msix@simplified-actions
+        id: build
         with:
-          dotnet_version: 9.0.x
           project_path: ${{ env.PROJECT_PATH }}
           installer_project_path: ${{ env.INSTALLER_PATH }}
           release_version: ${{ needs.get_semantic_release_version.outputs.new_release_version }}
-          publish_path: './publish-msix'
           msix_platform: 'x64'
+          artifact_directory: ${{ env.ARTIFACT_PATH_MSIX }}
           file_name: '${{ env.BASE_NAME }}_${{ needs.get_semantic_release_version.outputs.new_release_version }}_x64'
-          sign_with_trusted_signing: true
-          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-          AZURE_ENDPOINT: https://weu.codesigning.azure.net
-          AZURE_TRUSTED_SIGNING_ACCOUNT_NAME: rosslight
-          AZURE_CERTIFICATE_PROFILE_NAME: PublicKeyProfile
 
   release:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.get_semantic_release_version.outputs.new_release_published == 'true'
-    runs-on: ubuntu-latest
+    # Has to run on windows because of sign-action
+    runs-on: windows-latest
     name: Create release
-    needs: [ build_test, publish_windows_aot ]
+    needs: [ build_test, publish_msix ]
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -70,13 +93,23 @@ jobs:
       - name: Load cached msix
         uses: actions/cache/restore@v4
         with:
-          path: './publish-msix'
-          key: ${{ needs.publish_windows_aot.outputs.cache_key }}
+          path: './publish'
+          key: ${{ needs.publish_msix.outputs.cache_key }}
           fail-on-cache-miss: true
           enableCrossOsArchive: true
 
+      - name: Sign files with Trusted Signing
+        uses: azure/trusted-signing-action@v0.4.0
+        with:
+          azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+          endpoint: ${{ env.AZURE_ENDPOINT }}
+          trusted-signing-account-name: ${{ env.AZURE_TRUSTED_SIGNING_ACCOUNT_NAME }}
+          certificate-profile-name: ${{ env.AZURE_CERTIFICATE_PROFILE_NAME }}
+          files-folder: './publish'
+
       - name: Semantic Release
-        id: release
         uses: cycjimmy/semantic-release-action@v4
         with:
           extra_plugins: |
