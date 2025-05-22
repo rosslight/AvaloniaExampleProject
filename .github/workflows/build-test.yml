@@ -42,7 +42,7 @@ jobs:
 
   publish_exe:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.get_semantic_release_version.outputs.new_release_published == 'true'
-    runs-on: ubuntu-latest
+    runs-on: windows-latest # Using windows as Cross-OS native compilation is not supported
     needs: [get_semantic_release_version]
     outputs:
       cache_key: ${{ steps.publish.outputs.cache_key }}
