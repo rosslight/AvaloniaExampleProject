@@ -15,15 +15,25 @@
   "sources": [
     {
       "source": "./",
+      "include": [
+        ".config/**",
+        ".github/**",
+        "src/**",
+        "test/**",
+        ".editorconfig",
+        ".gitattributes",
+        ".gitignore",
+        ".releaserc",
+        "AvaloniaExampleProject.slnx",
+        "Directory.Build.props",
+        "Directory.Packages.props",
+        "global.json",
+        "nuget.config",
+        "README.md"
+      ],
       "exclude": [
-        ".git/**",
-        "doc/**",
         "**/[Bb]in/**",
-        "**/[Oo]bj/**",
-        ".template.config/**",
-        ".template.config/**",
-        ".github/workflows/publish-template.yml",
-        "./Darp.Templates.csproj"
+        "**/[Oo]bj/**"
       ]
     }
   ]
