@@ -22,8 +22,5 @@ jobs:
       - name: Pack template package
         run: dotnet pack Darp.Templates.csproj -c Release /p:PackageVersion=${{ steps.get_version.outputs.version }}
 
-      - name: Upload package as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: template-nupkg-${{ steps.get_version.outputs.version }}
-          path: bin/Release/*.nupkg
+      - name: Push template package
+        run: dotnet nuget push ./bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
