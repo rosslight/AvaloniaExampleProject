@@ -1,0 +1,22 @@
+name: Publish Template to NuGet
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract version from tag
+        id: get_version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - uses: actions/setup-dotnet@v4
+      - name: "Pack"
+        run: dotnet pack Darp.Templates.csproj -c Release /p:PackageVersion=${{ steps.get_version.outputs.version }}
+          

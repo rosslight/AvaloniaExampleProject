@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <PackageId>Darp.Templates</PackageId>
+    <Title>rosslight Templates</Title>
+    <Authors>rosslight GmbH</Authors>
+    <Description>The rosslight template for cross-platform desktop applications using Avalonia</Description>
+    <PackageTags>dotnet-new;templates;rosslight</PackageTags>
+    <PackageProjectUrl>https://github.com/rosslight/AvaloniaExampleProject</PackageProjectUrl>
+    <!-- Keep package type as 'Template' to show the package as a template package on nuget.org and make your template available in dotnet new search.-->
+    <PackageType>Template</PackageType>
+    <TargetFramework>net9.0</TargetFramework>
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <ContentTargetFolders>.</ContentTargetFolders>
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
+    <NoDefaultExcludes>true</NoDefaultExcludes>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <LocalizeTemplates>false</LocalizeTemplates>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference
+      Include="Microsoft.TemplateEngine.Tasks"
+      Version="*"
+      PrivateAssets="all"
+      IsImplicitlyDefined="true"
+    />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="**/*" Exclude="**/bin/**;**/obj/**;doc/**;.git/**" />
+    <Compile Remove="**/*" />
+  </ItemGroup>
+</Project>

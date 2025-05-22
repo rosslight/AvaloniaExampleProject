@@ -2,7 +2,7 @@
 
 This repository contains an example project which can be used to base new projects on.
 
-### Features
+## Features
 
 - Already configured repository
   - GitHub actions workflows
@@ -30,10 +30,36 @@ This repository contains an example project which can be used to base new projec
   - [Darp.Utils.Dialog](https://github.com/rosslight/Darp.Utils/tree/main?tab=readme-ov-file#darputilsdialog) for MVVM compatible dialogs
   - [System.Text.Json](https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/overview) with source generation for configuration files
 
-# Preview
+## Preview
 
 ![](doc/_media/app-preview.gif)
 
-# About
+## How to use this project as a template
+
+Install the rosslight templates nuget package:
+
+````shell
+dotnet new install Darp.Templates 
+````
+
+Then, create a new template using
+
+```shell
+dotnet new darp.avalonia.desktop -o MyApp
+```
+
+### GitHub Actions
+
+- Go to the [workflow file](.github/workflows/build-test.yml)
+
+## Further reading
+
+As stated, this is a opinionated app. Take a look at other resources
+
+- [Awesome Avalonia](https://github.com/AvaloniaCommunity/awesome-avalonia?tab=readme-ov-file#tutorials)
+- [Avalonia docs](https://docs.avaloniaui.net/)
+- [Modern.Net-Tutorial](https://github.com/mysteryx93/Modern.Net-Tutorial)
+
+## About
 
 This is a project by [rosslight GmbH](https://rosslight.de/)
