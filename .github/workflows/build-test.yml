@@ -80,7 +80,7 @@ jobs:
 
   release:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.get_semantic_release_version.outputs.new_release_published == 'true'
-    # Has to run on windows because of sign-action
+    # Has to run on windows because of trusted-signing-action
     runs-on: windows-latest
     name: Create release
     needs: [ build_test, publish_exe, publish_msix ]
