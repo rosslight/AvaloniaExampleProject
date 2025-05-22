@@ -128,8 +128,8 @@ jobs:
           endpoint: ${{ env.AZURE_ENDPOINT }}
           trusted-signing-account-name: ${{ env.AZURE_TRUSTED_SIGNING_ACCOUNT_NAME }}
           certificate-profile-name: ${{ env.AZURE_CERTIFICATE_PROFILE_NAME }}
+          files-folder: ${{ env.PUBLISH_PATH }}
           files-folder-recurse: true
-          files-folder: ${{ env.ARTIFACT_PATH_MSIX }}
 
       - name: Zip signed directories
         run: |
