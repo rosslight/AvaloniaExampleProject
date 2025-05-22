@@ -42,7 +42,9 @@ jobs:
 
   publish_exe:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.get_semantic_release_version.outputs.new_release_published == 'true'
-    runs-on: windows-latest # Using windows as Cross-OS native compilation is not supported
+    # Using windows as Cross-OS native compilation is not supported
+    # Ubuntu can be used if <PublishAot> is false. If compiling for windows, make sure to set '/p:EnableWindowsTargeting=true'
+    runs-on: windows-latest
     needs: [get_semantic_release_version]
     outputs:
       cache_key: ${{ steps.publish.outputs.cache_key }}
@@ -52,10 +54,10 @@ jobs:
         id: publish
         with:
           project_path: ${{ env.PROJECT_PATH }}
-          dotnet_build_args: '-r win-x64 /p:EnableWindowsTargeting=true'
+          dotnet_build_args: '-r win-x64'
           release_version: ${{ needs.get_semantic_release_version.outputs.new_release_version }}
           artifact_directory: ${{ env.ARTIFACT_PATH_EXE }}
-          dotnet_publish_args: '-r win-x64 /p:EnableWindowsTargeting=true'
+          dotnet_publish_args: '-r win-x64'
           file_name: '${{ env.BASE_NAME }}_${{ needs.get_semantic_release_version.outputs.new_release_version }}_x64'
 
   publish_msix:
@@ -67,7 +69,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: rosslight/reusable-actions/publish-msix@simplified-actions
-        id: build
+        id: publish
         with:
           project_path: ${{ env.PROJECT_PATH }}
           installer_project_path: ${{ env.INSTALLER_PATH }}
@@ -81,10 +83,18 @@ jobs:
     # Has to run on windows because of sign-action
     runs-on: windows-latest
     name: Create release
-    needs: [ build_test, publish_msix ]
+    needs: [ build_test, publish_exe, publish_msix ]
     steps:
       - name: Check out code
         uses: actions/checkout@v4
+
+      - name: Load cached exe
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ env.ARTIFACT_PATH_EXE }}
+          key: ${{ needs.publish_exe.outputs.cache_key }}
+          fail-on-cache-miss: true
+          enableCrossOsArchive: true
 
       - name: Load cached msix
         uses: actions/cache/restore@v4
@@ -97,6 +107,7 @@ jobs:
       - name: Move artifacts to be signed
         run: |
           mkdir ./publish
+          mv ${{ env.ARTIFACT_PATH_EXE }}/*.zip ./publish
           mv ${{ env.ARTIFACT_PATH_MSIX }}/*.msix ./publish
 
       - name: Sign files with Trusted Signing
