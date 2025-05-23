@@ -156,3 +156,5 @@ jobs:
     needs: [ get_semantic_release_version, release ]
     with:
       release_version: ${{ needs.get_semantic_release_version.outputs.new_release_version }}
+    secrets:
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}

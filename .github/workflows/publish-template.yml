@@ -7,6 +7,10 @@ on:
         description: 'The semantic-release version that was just published'
         required: true
         type: string
+    secrets:
+      NUGET_API_KEY:
+        description: 'API key to push packages to nuget.org'
+        required: true
 
 jobs:
   publish:
