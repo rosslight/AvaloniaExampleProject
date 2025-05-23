@@ -1,8 +1,10 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Headless.XUnit;
 using AvaloniaExampleProject.Assets;
 using AvaloniaExampleProject.ViewModels;
 using AvaloniaExampleProject.Views;
+using FluentAvalonia.Styling;
 using Microsoft.Extensions.DependencyInjection;
 using static AvaloniaExampleProject.Tests.VerifyHelpers;
 
@@ -32,6 +34,8 @@ public class SettingsViewModelTests
     public Task Render_JustText()
     {
         var control = new UserControl { Content = new TextBlock { Text = "This is some random text!" } };
+        var styles = Application.Current!.Styles;
+        styles.RemoveAll(styles.OfType<FluentAvaloniaTheme>());
         return VerifyControl(control);
     }
 }
