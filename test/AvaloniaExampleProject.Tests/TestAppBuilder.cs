@@ -57,10 +57,13 @@ public class TestAppBuilder
             .Configure(() => new App(provider))
             .UseSkia()
             .UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false })
+            .WithInterFont()
             .AfterSetup(builder =>
             {
                 if (builder.Instance is null)
                     throw new Exception("Instance is null");
+                var themes = builder.Instance.Styles.OfType<FluentAvaloniaTheme>();
+                builder.Instance.Styles.RemoveAll(themes);
                 builder.Instance.Styles.Add(
                     new FluentAvaloniaTheme { PreferSystemTheme = false, PreferUserAccentColor = false }
                 );
