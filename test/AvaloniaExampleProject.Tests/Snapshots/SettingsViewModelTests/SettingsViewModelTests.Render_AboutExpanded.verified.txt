@@ -45,6 +45,7 @@
       ]
     }
   },
+  FontFamily: Inter,
   DataContext: {
     ThemeService: {
       AvailableThemes: [

@@ -1,4 +1,5 @@
 using Avalonia.Headless.XUnit;
+using Avalonia.Media;
 using AvaloniaExampleProject.ViewModels;
 using AvaloniaExampleProject.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +14,7 @@ public sealed class WelcomeViewModelTests
     {
         var viewModel = TestAppBuilder.Services.GetRequiredService<WelcomeViewModel>();
         var control = new WelcomeView { ViewModel = viewModel };
+        control.FontFamily = new FontFamily("Inter");
         return VerifyControl(control);
     }
 }

@@ -1,6 +1,8 @@
 using System.Runtime.CompilerServices;
 using Avalonia;
+using Avalonia.Fonts.Inter;
 using Avalonia.Headless;
+using Avalonia.Media;
 using AvaloniaExampleProject.Business;
 using AvaloniaExampleProject.Models;
 using AvaloniaExampleProject.Tests;
