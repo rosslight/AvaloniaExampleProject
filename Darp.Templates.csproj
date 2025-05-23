@@ -1,20 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
+    <!-- Package settings -->
+    <PackageType>Template</PackageType>
     <PackageId>Darp.Templates</PackageId>
-    <Title>rosslight Templates</Title>
+    <Title>Rosslight Templates</Title>
     <Authors>rosslight GmbH</Authors>
     <Description>The rosslight template for cross-platform desktop applications using Avalonia</Description>
     <PackageTags>dotnet-new;templates;rosslight</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/rosslight/Darp.Utils.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/rosslight/AvaloniaExampleProject</PackageProjectUrl>
-    <!-- Keep package type as 'Template' to show the package as a template package on nuget.org and make your template available in dotnet new search.-->
-    <PackageType>Template</PackageType>
-    <TargetFramework>net9.0</TargetFramework>
-    <IncludeContentInPack>true</IncludeContentInPack>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <!-- Template Package settings -->
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <ContentTargetFolders>.</ContentTargetFolders>
-    <NoWarn>$(NoWarn);NU5128</NoWarn>
+    <IncludeContentInPack>true</IncludeContentInPack>
     <NoDefaultExcludes>true</NoDefaultExcludes>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <!-- Template settings -->
     <LocalizeTemplates>false</LocalizeTemplates>
   </PropertyGroup>
   <ItemGroup>
