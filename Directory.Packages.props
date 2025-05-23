@@ -7,6 +7,7 @@
     <PackageVersion Include="AsyncAwaitBestPractices" Version="9.0.0" />
     <PackageVersion Include="Avalonia" Version="11.3.0" />
     <PackageVersion Include="Avalonia.Desktop" Version="11.3.0" />
+    <PackageVersion Include="Avalonia.Diagnostics" Version="11.3.0" />
     <PackageVersion Include="Avalonia.Headless.XUnit" Version="11.3.0" />
     <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.3.0" />
     <PackageVersion Include="AvaloniaUI.DiagnosticsSupport" Version="2.0.3" />
