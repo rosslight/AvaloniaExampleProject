@@ -14,4 +14,5 @@ public static class DesignData
     public static WelcomeViewModel WelcomeViewModel { get; } = ServiceProvider.GetRequiredService<WelcomeViewModel>();
     public static SettingsViewModel SettingsViewModel { get; } =
         ServiceProvider.GetRequiredService<SettingsViewModel>();
+    public static MainViewModel MainViewModel { get; } = ServiceProvider.GetRequiredService<MainViewModel>();
 }
