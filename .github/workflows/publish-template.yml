@@ -1,26 +1,22 @@
 name: Publish Template to NuGet
 
 on:
-  push:
-    tags:
-      - 'v*.*.*'
-  create:
+  workflow_call:
+    inputs:
+      release_version:
+        description: 'The semantic-release version that was just published'
+        required: true
+        type: string
 
 jobs:
   publish:
-    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Extract version from tag
-        id: get_version
-        run: |
-          TAG=${GITHUB_REF#refs/tags/}
-          echo "version=${TAG#v}" >> $GITHUB_OUTPUT
 
       - uses: actions/setup-dotnet@v4
       - name: Pack template package
-        run: dotnet pack Darp.Templates.csproj -c Release /p:PackageVersion=${{ steps.get_version.outputs.version }}
+        run: dotnet pack Darp.Templates.csproj -c Release /p:PackageVersion=${{ inputs.release_version }}
 
       - name: Push template package
         run: dotnet nuget push ./bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
