@@ -149,7 +149,8 @@ jobs:
             @semantic-release/github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+#if (False)
+# Exclude in template
   publish_template:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.get_semantic_release_version.outputs.new_release_published == 'true'
     uses: ./.github/workflows/publish-template.yml
