@@ -13,6 +13,7 @@
                              IsSettingsVisible="False" IsPaneToggleButtonVisible="False"
                              SelectionFollowsFocus="True"
                              SelectedItem="Home"
+                             CompactModeThresholdWidth="0"
                              SelectionChanged="TabStripControl_OnSelectionChanged">
         <controls:NavigationView.Resources>
             <!-- Override this so content doesn't appear in the TitleBar area -->

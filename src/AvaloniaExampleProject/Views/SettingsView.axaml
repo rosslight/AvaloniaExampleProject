@@ -53,7 +53,8 @@
             </StackPanel>
             <TextBlock Text="{CompiledBinding I18N.Settings_About_Title}" 
                        Theme="{StaticResource BodyStrongTextBlockStyle}"/>
-            <controls:SettingsExpander Header="{CompiledBinding I18N.App_Title}"
+            <controls:SettingsExpander Name="AboutSettingsExpander"
+                                       Header="{CompiledBinding I18N.App_Title}"
                                        Description="{CompiledBinding I18N.Settings_About_ByCompany}">
                 <controls:SettingsExpander.Footer>
                     <SelectableTextBlock Text="{CompiledBinding AppVersion^}"

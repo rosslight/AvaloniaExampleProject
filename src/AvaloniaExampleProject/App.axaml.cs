@@ -30,10 +30,6 @@ public sealed class App : Application
     [MemberNotNullWhen(true, nameof(IsDesignMode))]
     public static IServiceProvider? ServiceProvider { get; private set; }
 
-    public static string Version { get; } =
-        typeof(App).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion
-        ?? throw new VersionNotFoundException("Could not get version");
-
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);

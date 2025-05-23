@@ -30,4 +30,7 @@
   <ItemGroup>
     <EmbeddedResource Update="Assets/Resources.resx" Public="true" EmitFormatMethods="true" />
   </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="AvaloniaExampleProject.Tests" />
+  </ItemGroup>
 </Project>

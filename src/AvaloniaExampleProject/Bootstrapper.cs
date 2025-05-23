@@ -20,6 +20,7 @@ public static class Bootstrapper
             .AddConfigurationFile<MainConfig, IAppDataAssetsService>("config.json", JsonContext.Default.MainConfig)
             .AddLocalization()
             .AddSingleton<IThemeService, ThemeService>()
+            .AddSingleton<IAppInformationService, AppInformationService>()
             // Configure ViewModels
             .AddTransient<MainWindowViewModel>()
             .AddTransient<MainViewModel>()
