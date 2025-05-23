@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Headless.XUnit;
+using Avalonia.Media;
 using AvaloniaExampleProject.Assets;
 using AvaloniaExampleProject.ViewModels;
 using AvaloniaExampleProject.Views;
@@ -33,7 +34,12 @@ public class SettingsViewModelTests
     [AvaloniaFact]
     public Task Render_JustText()
     {
-        var control = new UserControl { Content = new TextBlock { Text = "This is some random text!" } };
+        var control = new UserControl
+        {
+            Content = new TextBlock { Text = "This is some random text!" },
+            FontWeight = FontWeight.SemiBold,
+            FontSize = 14,
+        };
         var styles = Application.Current!.Styles;
         styles.RemoveAll(styles.OfType<FluentAvaloniaTheme>());
         return VerifyControl(control);

@@ -4,5 +4,7 @@
     Type: TextBlock,
     Text: This is some random text!
   },
-  FontFamily: Inter
+  FontFamily: Inter,
+  FontSize: 14.0,
+  FontWeight: DemiBold
 }
