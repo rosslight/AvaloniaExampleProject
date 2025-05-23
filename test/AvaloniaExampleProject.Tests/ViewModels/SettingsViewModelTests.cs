@@ -1,4 +1,5 @@
-﻿using Avalonia.Headless.XUnit;
+﻿using Avalonia.Controls;
+using Avalonia.Headless.XUnit;
 using AvaloniaExampleProject.Assets;
 using AvaloniaExampleProject.ViewModels;
 using AvaloniaExampleProject.Views;
@@ -24,6 +25,13 @@ public class SettingsViewModelTests
             ViewModel = TestAppBuilder.Services.GetRequiredService<SettingsViewModel>(),
             AboutSettingsExpander = { IsExpanded = true },
         };
+        return VerifyControl(control);
+    }
+
+    [AvaloniaFact]
+    public Task Render_JustText()
+    {
+        var control = new UserControl { Content = new TextBlock { Text = "This is some random text!" } };
         return VerifyControl(control);
     }
 }
