@@ -32,7 +32,42 @@ public class SettingsViewModelTests
     }
 
     [AvaloniaFact]
-    public Task Render_JustText()
+    public Task Render_Default()
+    {
+        var control = new UserControl { Content = new TextBlock { Text = "This is some random text!" } };
+        var styles = Application.Current!.Styles;
+        styles.RemoveAll(styles.OfType<FluentAvaloniaTheme>());
+        return VerifyControl(control);
+    }
+
+    [AvaloniaFact]
+    public Task Render_FontSize()
+    {
+        var control = new UserControl
+        {
+            Content = new TextBlock { Text = "This is some random text!" },
+            FontSize = 14,
+        };
+        var styles = Application.Current!.Styles;
+        styles.RemoveAll(styles.OfType<FluentAvaloniaTheme>());
+        return VerifyControl(control);
+    }
+
+    [AvaloniaFact]
+    public Task Render_FontWeight()
+    {
+        var control = new UserControl
+        {
+            Content = new TextBlock { Text = "This is some random text!" },
+            FontWeight = FontWeight.SemiBold,
+        };
+        var styles = Application.Current!.Styles;
+        styles.RemoveAll(styles.OfType<FluentAvaloniaTheme>());
+        return VerifyControl(control);
+    }
+
+    [AvaloniaFact]
+    public Task Render_FontSizeAndWeight()
     {
         var control = new UserControl
         {

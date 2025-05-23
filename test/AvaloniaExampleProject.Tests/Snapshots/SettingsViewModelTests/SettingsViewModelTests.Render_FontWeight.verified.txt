@@ -1,0 +1,9 @@
+﻿{
+  Type: UserControl,
+  Content: {
+    Type: TextBlock,
+    Text: This is some random text!
+  },
+  FontFamily: Inter,
+  FontWeight: DemiBold
+}
