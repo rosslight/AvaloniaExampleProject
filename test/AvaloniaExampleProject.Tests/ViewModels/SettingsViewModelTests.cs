@@ -1,5 +1,4 @@
 ﻿using Avalonia.Headless.XUnit;
-using Avalonia.Media;
 using AvaloniaExampleProject.Assets;
 using AvaloniaExampleProject.ViewModels;
 using AvaloniaExampleProject.Views;
@@ -14,7 +13,6 @@ public class SettingsViewModelTests
     public Task Render()
     {
         var control = new SettingsView { ViewModel = TestAppBuilder.Services.GetRequiredService<SettingsViewModel>() };
-        control.FontFamily = new FontFamily("Inter");
         return VerifyControl(control).ScrubMembersWithType<Resources>();
     }
 
@@ -26,7 +24,6 @@ public class SettingsViewModelTests
             ViewModel = TestAppBuilder.Services.GetRequiredService<SettingsViewModel>(),
             AboutSettingsExpander = { IsExpanded = true },
         };
-        control.FontFamily = new FontFamily("Inter");
         return VerifyControl(control);
     }
 }
