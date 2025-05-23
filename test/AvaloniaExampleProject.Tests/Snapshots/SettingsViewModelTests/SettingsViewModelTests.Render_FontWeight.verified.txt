@@ -4,6 +4,23 @@
     Type: TextBlock,
     Text: This is some random text!
   },
+  Background: {
+    Type: SolidColorBrush,
+    Color: {
+      A: 255,
+      R: 255,
+      G: 255,
+      B: 255
+    },
+    Opacity: 1.0
+  },
   FontFamily: Inter,
-  FontWeight: DemiBold
+  FontWeight: DemiBold,
+  Foreground: {
+    Type: SolidColorBrush,
+    Color: {
+      A: 255
+    },
+    Opacity: 1.0
+  }
 }

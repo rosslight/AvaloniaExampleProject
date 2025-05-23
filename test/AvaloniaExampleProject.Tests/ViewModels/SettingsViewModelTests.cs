@@ -32,9 +32,26 @@ public class SettingsViewModelTests
     }
 
     [AvaloniaFact]
+    public Task Render_FluentAvalonia()
+    {
+        var control = new UserControl
+        {
+            Content = new TextBlock { Text = "This is some random text!" },
+            Foreground = new SolidColorBrush(Color.Parse("Black")),
+        };
+        control.Background = new SolidColorBrush(0xFFFFFFFF);
+        return VerifyControl(control);
+    }
+
+    [AvaloniaFact]
     public Task Render_Default()
     {
-        var control = new UserControl { Content = new TextBlock { Text = "This is some random text!" } };
+        var control = new UserControl
+        {
+            Content = new TextBlock { Text = "This is some random text!" },
+            Foreground = new SolidColorBrush(Color.Parse("Black")),
+        };
+        control.Background = new SolidColorBrush(0xFFFFFFFF);
         var styles = Application.Current!.Styles;
         styles.RemoveAll(styles.OfType<FluentAvaloniaTheme>());
         return VerifyControl(control);
@@ -47,7 +64,9 @@ public class SettingsViewModelTests
         {
             Content = new TextBlock { Text = "This is some random text!" },
             FontSize = 14,
+            Foreground = new SolidColorBrush(Color.Parse("Black")),
         };
+        control.Background = new SolidColorBrush(0xFFFFFFFF);
         var styles = Application.Current!.Styles;
         styles.RemoveAll(styles.OfType<FluentAvaloniaTheme>());
         return VerifyControl(control);
@@ -60,7 +79,9 @@ public class SettingsViewModelTests
         {
             Content = new TextBlock { Text = "This is some random text!" },
             FontWeight = FontWeight.SemiBold,
+            Foreground = new SolidColorBrush(Color.Parse("Black")),
         };
+        control.Background = new SolidColorBrush(0xFFFFFFFF);
         var styles = Application.Current!.Styles;
         styles.RemoveAll(styles.OfType<FluentAvaloniaTheme>());
         return VerifyControl(control);
