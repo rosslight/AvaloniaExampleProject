@@ -15,6 +15,7 @@
       }
     ]
   },
+  FontFamily: Inter,
   DataContext: {
     I18N: {Scrubbed},
     ShowInputDialogCommand: WelcomeViewModel.ShowInputDialog(CancellationToken cancellationToken)

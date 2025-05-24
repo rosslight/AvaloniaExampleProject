@@ -4,19 +4,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:AvaloniaExampleProject.ViewModels"
              xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:models="clr-namespace:AvaloniaExampleProject.Models"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="AvaloniaExampleProject.Views.MainView"
-             x:DataType="vm:MainViewModel">
+             x:DataType="vm:MainViewModel"
+             Design.DataContext="{x:Static models:DesignData.MainViewModel}">
     <controls:NavigationView Name="NavView"
                              IsSettingsVisible="False" IsPaneToggleButtonVisible="False"
                              SelectionFollowsFocus="True"
                              SelectedItem="Home"
+                             CompactModeThresholdWidth="0"
                              SelectionChanged="TabStripControl_OnSelectionChanged">
         <controls:NavigationView.Resources>
             <!-- Override this so content doesn't appear in the TitleBar area -->
             <Thickness x:Key="NavigationViewContentMargin">0,0,0,0</Thickness>
             <Thickness x:Key="NavigationViewMinimalContentMargin">0,0,0,0</Thickness>
+            <!-- Override this so the header is shown correctly -->
+            <Thickness x:Key="NavigationViewHeaderMargin">8,8,0,0</Thickness>
         </controls:NavigationView.Resources>
+        <controls:NavigationView.Header>
+            <TextBlock Text="{CompiledBinding #NavView.((controls:NavigationViewItem)SelectedItem).Content}"/>
+        </controls:NavigationView.Header>
         <controls:NavigationView.MenuItems>
             <controls:NavigationViewItem IconSource="Home" Tag="{x:Type vm:WelcomeViewModel}"
                                          Content="{CompiledBinding I18N.Welcome_Title}" />
@@ -26,10 +34,7 @@
                                          Content="{CompiledBinding I18N.Settings_Title}" />
         </controls:NavigationView.FooterMenuItems>
 
-        <StackPanel Orientation="Vertical" Spacing="16" Margin="8,8,10,6">
-            <TextBlock Text="{CompiledBinding #NavView.((controls:NavigationViewItem)SelectedItem).Content}"
-                       Theme="{StaticResource TitleTextBlockStyle}"/>
-            <controls:Frame Name="MainFrame" NavigationFailed="MainFrame_OnNavigationFailed"/>
-        </StackPanel>
+        <controls:Frame Name="MainFrame" NavigationFailed="MainFrame_OnNavigationFailed"
+                        Margin="12,8,12,8"/>
     </controls:NavigationView>
 </UserControl>

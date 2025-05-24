@@ -17,16 +17,19 @@ public sealed partial class SettingsViewModel(
     Resources i18N,
     IConfigurationService<MainConfig> configurationService,
     IDialogService dialogService,
+    IAppInformationService appInformationService,
     ILogger<SettingsViewModel> logger
 ) : ViewModelBase
 {
     private readonly IConfigurationService<MainConfig> _configurationService = configurationService;
     private readonly IDialogService _dialogService = dialogService;
+    private readonly IAppInformationService _appInformationService = appInformationService;
     private readonly ILogger<SettingsViewModel> _logger = logger;
 
     public IThemeService ThemeService { get; } = themeService;
     public Resources I18N { get; } = i18N;
-    public IObservable<string> AppVersion => I18N.Observe(x => x.FormatSettings_About_Version(App.Version));
+    public IObservable<string> AppVersion =>
+        I18N.Observe(x => x.FormatSettings_About_Version(_appInformationService.Version));
 
     [ObservableProperty]
     public partial string SelectedLanguage { get; set; } = configurationService.Config.UserPreferences.SelectedLanguage;

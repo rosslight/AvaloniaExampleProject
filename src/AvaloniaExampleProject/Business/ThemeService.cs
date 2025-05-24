@@ -1,5 +1,3 @@
-using System.ComponentModel;
-using System.Reactive.Disposables;
 using Avalonia.Styling;
 using AvaloniaExampleProject.Models;
 using Darp.Utils.Configuration;

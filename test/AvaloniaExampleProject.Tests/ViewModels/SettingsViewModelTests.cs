@@ -12,8 +12,18 @@ public class SettingsViewModelTests
     [AvaloniaFact]
     public Task Render()
     {
-        var viewModel = TestAppBuilder.Services.GetRequiredService<SettingsViewModel>();
-        var control = new SettingsView { ViewModel = viewModel };
+        var control = new SettingsView { ViewModel = TestAppBuilder.Services.GetRequiredService<SettingsViewModel>() };
         return VerifyControl(control).ScrubMembersWithType<Resources>();
+    }
+
+    [AvaloniaFact]
+    public Task Render_AboutExpanded()
+    {
+        var control = new SettingsView
+        {
+            ViewModel = TestAppBuilder.Services.GetRequiredService<SettingsViewModel>(),
+            AboutSettingsExpander = { IsExpanded = true },
+        };
+        return VerifyControl(control);
     }
 }

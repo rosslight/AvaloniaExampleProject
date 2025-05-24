@@ -1,10 +1,9 @@
-using System.Data;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
+using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using AvaloniaExampleProject.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,10 +29,6 @@ public sealed class App : Application
     [MemberNotNullWhen(true, nameof(IsDesignMode))]
     public static IServiceProvider? ServiceProvider { get; private set; }
 
-    public static string Version { get; } =
-        typeof(App).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion
-        ?? throw new VersionNotFoundException("Could not get version");
-
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -45,8 +40,10 @@ public sealed class App : Application
         {
 #if DEBUG
             this.AttachDeveloperTools(options =>
-                options.AddMicrosoftLoggerObservable(_provider.GetRequiredService<ILoggerFactory>())
-            );
+            {
+                options.Gesture = new KeyGesture(Key.F11);
+                options.AddMicrosoftLoggerObservable(_provider.GetRequiredService<ILoggerFactory>());
+            });
 #endif
             DisableAvaloniaDataAnnotationValidation();
             desktop.MainWindow = new MainWindow(_provider);

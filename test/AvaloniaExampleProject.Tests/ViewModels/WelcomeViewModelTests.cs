@@ -1,5 +1,4 @@
 using Avalonia.Headless.XUnit;
-using AvaloniaExampleProject.Assets;
 using AvaloniaExampleProject.ViewModels;
 using AvaloniaExampleProject.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +13,6 @@ public sealed class WelcomeViewModelTests
     {
         var viewModel = TestAppBuilder.Services.GetRequiredService<WelcomeViewModel>();
         var control = new WelcomeView { ViewModel = viewModel };
-        return VerifyControl(control).ScrubMembersWithType<Resources>();
+        return VerifyControl(control);
     }
 }

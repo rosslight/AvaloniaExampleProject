@@ -1,7 +1,9 @@
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using Avalonia;
+using Avalonia.Fonts.Inter;
 using Avalonia.Headless;
+using Avalonia.Media;
+using AvaloniaExampleProject.Business;
 using AvaloniaExampleProject.Models;
 using AvaloniaExampleProject.Tests;
 using Darp.Utils.Configuration;
@@ -19,17 +21,8 @@ public class TestAppBuilder
     [ModuleInitializer]
     public static void Init()
     {
+        VerifyImageMagick.RegisterComparers(0.1);
         VerifierSettings.InitializePlugins();
-        RemovePngFileConverters();
-    }
-
-    private static void RemovePngFileConverters()
-    {
-        object? list = typeof(VerifierSettings)
-            .GetField("typedConverters", BindingFlags.NonPublic | BindingFlags.Static)
-            ?.GetValue(null);
-        var clazz = typeof(VerifierSettings).Assembly.GetType("TypeConverter")!;
-        typeof(List<>).MakeGenericType(clazz).GetMethod("Clear")!.Invoke(list, null);
     }
 
     private static readonly MainConfig MainConfig = new()
@@ -57,21 +50,28 @@ public class TestAppBuilder
 
     public static AppBuilder BuildAvaloniaApp()
     {
+        var appInformationService = Substitute.For<IAppInformationService>();
+        appInformationService.Version.Returns("1.2.3-aabbccdd");
         IServiceProvider provider = new ServiceCollection()
             .AddLogging(builder => builder.AddXUnit())
             .AddSingleton(SubstituteForMainConfigService())
             .AddAppServices()
+            .AddSingleton(appInformationService)
             .BuildServiceProvider();
         Services = provider;
         return AppBuilder
             .Configure(() => new App(provider))
+            .UseSkia()
             .UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false })
+            .WithInterFont()
             .AfterSetup(builder =>
             {
                 if (builder.Instance is null)
                     throw new Exception("Instance is null");
+                var themes = builder.Instance.Styles.OfType<FluentAvaloniaTheme>();
+                builder.Instance.Styles.RemoveAll(themes);
                 builder.Instance.Styles.Add(
-                    new FluentAvaloniaTheme { PreferSystemTheme = true, PreferUserAccentColor = true }
+                    new FluentAvaloniaTheme { PreferSystemTheme = false, PreferUserAccentColor = false }
                 );
             });
     }
