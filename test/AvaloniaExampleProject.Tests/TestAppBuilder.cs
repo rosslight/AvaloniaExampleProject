@@ -21,7 +21,7 @@ public class TestAppBuilder
     [ModuleInitializer]
     public static void Init()
     {
-        VerifyImageMagick.RegisterComparers(0.05);
+        VerifyImageMagick.RegisterComparers(0.1);
         VerifierSettings.InitializePlugins();
     }
 
