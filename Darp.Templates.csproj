@@ -10,7 +10,7 @@
     <Description>The rosslight template for cross-platform desktop applications using Avalonia</Description>
     <PackageTags>dotnet-new;templates;rosslight</PackageTags>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/rosslight/Darp.Utils.git</RepositoryUrl>
+    <RepositoryUrl>https://github.com/rosslight/AvaloniaExampleProject.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/rosslight/AvaloniaExampleProject</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
