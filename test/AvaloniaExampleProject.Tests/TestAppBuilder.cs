@@ -19,7 +19,11 @@ namespace AvaloniaExampleProject.Tests;
 public class TestAppBuilder
 {
     [ModuleInitializer]
-    public static void Init() => VerifierSettings.InitializePlugins();
+    public static void Init()
+    {
+        VerifyImageMagick.RegisterComparers();
+        VerifierSettings.InitializePlugins();
+    }
 
     private static readonly MainConfig MainConfig = new()
     {
