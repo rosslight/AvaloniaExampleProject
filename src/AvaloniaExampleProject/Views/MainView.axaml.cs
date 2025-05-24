@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using AvaloniaExampleProject.Models;
 using AvaloniaExampleProject.ViewModels;
+using Darp.Utils.Avalonia;
 using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Media.Animation;
 using FluentAvalonia.UI.Navigation;
@@ -24,7 +25,7 @@ public sealed partial class MainView : UserControlBase<MainViewModel>
 
     [Obsolete("Should by used by designer only!")]
     public MainView()
-        : this(DesignData.ServiceProvider) { }
+        : this(DesignData.Services) { }
 
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {

@@ -31,7 +31,7 @@ public sealed partial class MainWindow : AppWindow
 
     [Obsolete("Should by used by designer only!")]
     public MainWindow()
-        : this(DesignData.ServiceProvider) { }
+        : this(DesignData.Services) { }
 
     internal async Task LoadAsync(CancellationToken cancellationToken)
     {

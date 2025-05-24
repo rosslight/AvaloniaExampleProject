@@ -1,11 +1,10 @@
 using System.Diagnostics.CodeAnalysis;
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core.Plugins;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using AvaloniaExampleProject.Views;
+using Darp.Utils.Avalonia;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -13,21 +12,24 @@ namespace AvaloniaExampleProject;
 
 public sealed class App : Application
 {
-    private readonly IServiceProvider _provider;
-
     public App(IServiceProvider provider)
     {
-        _provider = provider;
+        Current = this;
+        Services = provider;
         DataTemplates.Add(new ViewLocator());
-        if (IsDesignMode)
-            ServiceProvider = provider;
     }
 
-    public static bool IsDesignMode => Design.IsDesignMode;
+    /// <summary> The service provider which is injected on app start </summary>
+    public IServiceProvider Services { get; }
 
-    /// <summary> The service provider which is injected on app start if <see cref="Design.IsDesignMode"/> is true </summary>
-    [MemberNotNullWhen(true, nameof(IsDesignMode))]
-    public static IServiceProvider? ServiceProvider { get; private set; }
+    /// <summary> The current instance of the app. </summary>
+    /// <exception cref="InvalidOperationException"> Thrown if the app was not created yet </exception>
+    [field: MaybeNull, AllowNull]
+    public static new App Current
+    {
+        get => field ?? throw new InvalidOperationException("Not created yet!");
+        private set;
+    }
 
     public override void Initialize()
     {
@@ -42,30 +44,13 @@ public sealed class App : Application
             this.AttachDeveloperTools(options =>
             {
                 options.Gesture = new KeyGesture(Key.F11);
-                options.AddMicrosoftLoggerObservable(_provider.GetRequiredService<ILoggerFactory>());
+                options.AddMicrosoftLoggerObservable(Services.GetRequiredService<ILoggerFactory>());
             });
 #endif
-            DisableAvaloniaDataAnnotationValidation();
-            desktop.MainWindow = new MainWindow(_provider);
+            AvaloniaHelpers.DisableAvaloniaDataAnnotationValidation();
+            desktop.MainWindow = new MainWindow(Services);
         }
 
         base.OnFrameworkInitializationCompleted();
-    }
-
-    /// <summary> Avoid duplicate validations from both Avalonia and the CommunityToolkit. </summary>
-    /// <seealso href="https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins"/>
-    [UnconditionalSuppressMessage("Trimming", "IL2026", Justification = "We are only removing validators")]
-    private static void DisableAvaloniaDataAnnotationValidation()
-    {
-        // Get an array of plugins to remove
-        DataAnnotationsValidationPlugin[] dataValidationPluginsToRemove = BindingPlugins
-            .DataValidators.OfType<DataAnnotationsValidationPlugin>()
-            .ToArray();
-
-        // remove each entry found
-        foreach (DataAnnotationsValidationPlugin plugin in dataValidationPluginsToRemove)
-        {
-            BindingPlugins.DataValidators.Remove(plugin);
-        }
     }
 }
