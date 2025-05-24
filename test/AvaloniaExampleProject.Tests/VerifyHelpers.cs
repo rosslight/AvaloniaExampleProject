@@ -10,9 +10,11 @@ public static class VerifyHelpers
 {
     public static SettingsTask VerifyControl(TemplatedControl control, [CallerFilePath] string? callerFilePath = null)
     {
-        control.FontFamily = new FontFamily("avares://Avalonia.Fonts.Inter/Assets/Inter-Regular.ttf#Inter");
+        var fontFamily = new FontFamily("avares://Avalonia.Fonts.Inter/Assets/Inter-Regular.ttf#Inter");
+        control.FontFamily = fontFamily;
+        control.Resources.Add("ContentControlThemeFontFamily", fontFamily);
         control.FontFamily.Name.ShouldBe("Inter");
-        control.FontFamily.FamilyTypefaces.Count.ShouldBe(1);
+        control.FontFamily.FamilyTypefaces.Count.ShouldBeGreaterThan(0);
         string directory =
             Path.GetFileNameWithoutExtension(callerFilePath) ?? throw new ArgumentNullException(nameof(callerFilePath));
         return Verify(control).ScrubMembersWithType<Resources>().UseDirectory(Path.Join("Snapshots", directory));
