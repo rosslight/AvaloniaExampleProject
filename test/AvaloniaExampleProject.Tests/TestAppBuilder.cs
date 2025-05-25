@@ -57,6 +57,7 @@ public class TestAppBuilder
             .AddSingleton(SubstituteForMainConfigService())
             .AddAppServices()
             .AddSingleton(appInformationService)
+            .AddSingleton(new Resources())
             .BuildServiceProvider();
         Services = provider;
         return AppBuilder

@@ -22,10 +22,73 @@
           Children: [
             {
               Type: SettingsExpander,
+              Description: Change the language,
+              Footer: {
+                Type: ComboBox,
+                SelectedIndex: -1,
+                Selection: {
+                  Source: [
+                    en,
+                    de
+                  ],
+                  SingleSelect: true,
+                  SelectedIndex: -1,
+                  AnchorIndex: -1
+                },
+                SelectionMode: Single,
+                ItemsSource: [
+                  en,
+                  de
+                ],
+                MinWidth: 128.0,
+                HorizontalAlignment: Center,
+                VerticalAlignment: Center
+              },
               Header: Language
             },
             {
               Type: SettingsExpander,
+              Description: Change the theme,
+              Footer: {
+                Type: ComboBox,
+                SelectedIndex: 0,
+                SelectedItem: Default,
+                SelectedValue: Default,
+                SelectedItems: [
+                  Default
+                ],
+                Selection: {
+                  WritableSelectedItems: [
+                    Default
+                  ],
+                  Source: [
+                    Default,
+                    Dark,
+                    Light
+                  ],
+                  SingleSelect: true,
+                  SelectedIndexes: [
+                    0
+                  ],
+                  SelectedItem: Default,
+                  SelectedItems: [
+                    Default
+                  ],
+                  Count: 1
+                },
+                SelectionMode: Single,
+                ItemsSource: [
+                  Default,
+                  Dark,
+                  Light
+                ],
+                ItemTemplate: {
+                  Content: {}
+                },
+                MinWidth: 128.0,
+                HorizontalAlignment: Center,
+                VerticalAlignment: Center
+              },
               Header: Theme
             }
           ]
@@ -39,6 +102,14 @@
         },
         {
           Type: SettingsExpander,
+          Description: By rosslight GmbH,
+          Footer: {
+            Type: SelectableTextBlock,
+            Text: Version: 1.2.3-aabbccdd,
+            Theme: {
+              Type: ControlTheme
+            }
+          },
           Header: Avalonia Example Project,
           Name: AboutSettingsExpander
         }
@@ -57,7 +128,6 @@
     },
     I18N: {Scrubbed},
     AppVersion: {},
-    SelectedLanguage: en-EN,
     SelectedTheme: Default,
     ShowLicensesDialogCommand: SettingsViewModel.ShowLicensesDialogAsync(CancellationToken cancellationToken)
   }
