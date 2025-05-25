@@ -1,13 +1,15 @@
 using System.Runtime.CompilerServices;
 using Avalonia;
-using Avalonia.Fonts.Inter;
 using Avalonia.Headless;
-using Avalonia.Media;
+using AvaloniaExampleProject.Assets;
 using AvaloniaExampleProject.Business;
 using AvaloniaExampleProject.Models;
 using AvaloniaExampleProject.Tests;
+using Darp.Utils.Assets;
+using Darp.Utils.Assets.Abstractions;
 using Darp.Utils.Configuration;
 using FluentAvalonia.Styling;
+using FluentAvalonia.UI.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
@@ -22,39 +24,27 @@ public class TestAppBuilder
     public static void Init()
     {
         VerifyImageMagick.RegisterComparers(0.1);
+        VerifyAvalonia.AddAvaloniaConvertersForAssemblyOfType<NavigationView>();
         VerifierSettings.InitializePlugins();
     }
 
-    private static readonly MainConfig MainConfig = new()
+    private static readonly MainConfig s_mainConfig = new()
     {
         UserPreferences = new UserPreferencesConfig { SelectedLanguage = "en-EN", SelectedTheme = "Default" },
     };
 
     public static IServiceProvider Services { get; private set; } = null!;
 
-    public static IConfigurationService<MainConfig> SubstituteForMainConfigService()
-    {
-        IConfigurationService<MainConfig> mockConfig = Substitute.For<IConfigurationService<MainConfig>>();
-        MainConfig tempConfig = MainConfig;
-        mockConfig.Config.Returns(_ => tempConfig);
-        mockConfig
-            .WriteConfigurationAsync(Arg.Any<MainConfig>())
-            .Returns(callInfo =>
-            {
-                tempConfig = callInfo.Arg<MainConfig>();
-                return Task.FromResult(tempConfig);
-            });
-        mockConfig.LoadConfigurationAsync(Arg.Any<CancellationToken>()).Returns(_ => tempConfig);
-        return mockConfig;
-    }
-
     public static AppBuilder BuildAvaloniaApp()
     {
         var appInformationService = Substitute.For<IAppInformationService>();
         appInformationService.Version.Returns("1.2.3-aabbccdd");
+        var assetsService = new MemoryAssetsService("base/path");
+        assetsService.SerializeJsonAsync("config.json", s_mainConfig).GetAwaiter().GetResult();
         IServiceProvider provider = new ServiceCollection()
             .AddLogging(builder => builder.AddXUnit())
-            .AddSingleton(SubstituteForMainConfigService())
+            .AddSingleton<IAssetsService>(assetsService)
+            .AddConfigurationFile<MainConfig, IAssetsService>("config.json")
             .AddAppServices()
             .AddSingleton(appInformationService)
             .AddSingleton(new Resources())

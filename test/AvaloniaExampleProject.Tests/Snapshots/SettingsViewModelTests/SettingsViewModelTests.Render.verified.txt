@@ -25,21 +25,38 @@
               Description: Change the language,
               Footer: {
                 Type: ComboBox,
-                SelectedIndex: -1,
+                SelectedIndex: 0,
+                SelectedItem: en,
+                SelectedValue: en,
+                SelectedItems: [
+                  en
+                ],
                 Selection: {
+                  WritableSelectedItems: [
+                    en
+                  ],
                   Source: [
                     en,
                     de
                   ],
                   SingleSelect: true,
-                  SelectedIndex: -1,
-                  AnchorIndex: -1
+                  SelectedIndexes: [
+                    0
+                  ],
+                  SelectedItem: en,
+                  SelectedItems: [
+                    en
+                  ],
+                  Count: 1
                 },
                 SelectionMode: Single,
                 ItemsSource: [
                   en,
                   de
                 ],
+                ItemTemplate: {
+                  Content: {}
+                },
                 MinWidth: 128.0,
                 HorizontalAlignment: Center,
                 VerticalAlignment: Center
@@ -128,6 +145,7 @@
     },
     I18N: {Scrubbed},
     AppVersion: {},
+    SelectedLanguage: en,
     SelectedTheme: Default,
     ShowLicensesDialogCommand: SettingsViewModel.ShowLicensesDialogAsync(CancellationToken cancellationToken)
   }
