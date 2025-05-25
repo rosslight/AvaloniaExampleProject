@@ -12,6 +12,6 @@ public sealed record MainConfig(UserPreferencesConfig? UserPreferences = null)
 
 public sealed record UserPreferencesConfig(string? SelectedLanguage = null, string? SelectedTheme = null)
 {
-    public string SelectedLanguage { get; init; } = SelectedLanguage ?? "en-EN";
+    public string SelectedLanguage { get; init; } = SelectedLanguage ?? "en";
     public string SelectedTheme { get; init; } = SelectedTheme ?? "Default";
 }

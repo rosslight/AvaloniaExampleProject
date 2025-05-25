@@ -31,8 +31,14 @@
                     <controls:SettingsExpander.Footer>
                         <ComboBox HorizontalAlignment="Center" VerticalAlignment="Center"
                                   MinWidth="{StaticResource SettingsViewContentWidth}"
-                                  ItemsSource="{CompiledBinding I18N.AvailableLanguages}"
-                                  SelectedValue="{CompiledBinding SelectedLanguage}"/>
+                                  ItemsSource="{CompiledBinding I18N.AvailableCultures}"
+                                  SelectedValue="{CompiledBinding SelectedLanguage}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{CompiledBinding NativeName}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                     </controls:SettingsExpander.Footer>
                 </controls:SettingsExpander>
                 <controls:SettingsExpander Header="{CompiledBinding I18N.Settings_ChangeTheme_Title}"

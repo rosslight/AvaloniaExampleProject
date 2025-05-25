@@ -32,18 +32,19 @@ public sealed partial class SettingsViewModel(
         I18N.Observe(x => x.FormatSettings_About_Version(_appInformationService.Version));
 
     [ObservableProperty]
-    public partial string SelectedLanguage { get; set; } = configurationService.Config.UserPreferences.SelectedLanguage;
+    public partial CultureInfo SelectedLanguage { get; set; } =
+        Resources.GetCulture(configurationService.Config.UserPreferences.SelectedLanguage);
 
     [ObservableProperty]
     public partial string SelectedTheme { get; set; } = configurationService.Config.UserPreferences.SelectedTheme;
 
     // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
-    partial void OnSelectedLanguageChanging(string value)
+    partial void OnSelectedLanguageChanged(CultureInfo value)
     {
         if (value is null)
             return;
-        I18N.Culture = new CultureInfo(value);
-        SaveConfig(c => c with { UserPreferences = c.UserPreferences with { SelectedLanguage = value } });
+        I18N.Culture = value;
+        SaveConfig(c => c with { UserPreferences = c.UserPreferences with { SelectedLanguage = value.Name } });
     }
 
     // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract

@@ -6,7 +6,7 @@ namespace AvaloniaExampleProject.Business;
 
 public interface IThemeService
 {
-    string[] AvailableThemes { get; }
+    IReadOnlyList<string> AvailableThemes { get; }
     IObservable<ThemeVariant> RequestedThemeVariant { get; }
 }
 
@@ -18,7 +18,7 @@ public sealed class ThemeService(IConfigurationService<MainConfig> configuration
 
     private readonly IConfigurationService<MainConfig> _configurationService = configurationService;
 
-    public string[] AvailableThemes { get; } = [DefaultTheme, DarkTheme, LightTheme];
+    public IReadOnlyList<string> AvailableThemes { get; } = [DefaultTheme, DarkTheme, LightTheme];
 
     public IObservable<ThemeVariant> RequestedThemeVariant =>
         _configurationService.Observe(config => ThemeVariantFromString(config.UserPreferences.SelectedTheme));

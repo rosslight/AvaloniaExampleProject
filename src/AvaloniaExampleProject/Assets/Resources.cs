@@ -9,28 +9,18 @@ public partial class Resources : INotifyPropertyChanged
 {
     private readonly PropertyChangedEventArgs _cultureChangedEventArgs = new(null);
 
-    /// <summary> All languages available </summary>
-    public static IReadOnlyList<string> AvailableLanguages { get; } = [Languages.Default, Languages.GermanStandard];
-
     /// <summary> All cultures available </summary>
     public static IReadOnlyList<CultureInfo> AvailableCultures { get; } =
-        [CultureInfo.GetCultureInfo(Languages.Default), CultureInfo.GetCultureInfo(Languages.GermanStandard)];
+        [CultureInfo.GetCultureInfo(Languages.Default), CultureInfo.GetCultureInfo(Languages.German)];
 
-    public static bool TryGetCulture(string language, [NotNullWhen(true)] out CultureInfo? cultureInfo)
+    /// <summary> Get a supported <see cref="CultureInfo"/> for the resources </summary>
+    /// <param name="languageName"> The language name (e.g. 'en-US' or 'de') </param>
+    /// <returns> The matching CultureInfo or the fallback culture </returns>
+    public static CultureInfo GetCulture(string languageName)
     {
-        string lowered = language.ToLowerInvariant();
-        switch (lowered)
-        {
-            case Languages.GermanStandard:
-                cultureInfo = AvailableCultures[1];
-                return true;
-            case Languages.Default:
-                cultureInfo = AvailableCultures[0];
-                return true;
-            default:
-                cultureInfo = AvailableCultures[0];
-                return false;
-        }
+        string lowered = languageName.ToLowerInvariant();
+        return AvailableCultures.FirstOrDefault(x => x.Name == lowered)
+            ?? CultureInfo.GetCultureInfo(Languages.Default);
     }
 
     internal Resources()
@@ -54,7 +44,7 @@ public partial class Resources : INotifyPropertyChanged
         public const string Default = "en";
 
         /// <summary> German (Standard) </summary>
-        public const string GermanStandard = "de";
+        public const string German = "de";
     }
 }
 
