@@ -70,6 +70,10 @@
                     <HyperlinkButton Content="{CompiledBinding I18N.Settings_About_LibrariesTitle}" Padding="0"
                                      Command="{CompiledBinding ShowLicensesDialogCommand}"/>
                 </controls:SettingsExpanderItem>
+                <controls:SettingsExpanderItem>
+                    <HyperlinkButton Content="{CompiledBinding I18N.Settings_About_ChangelogTitle}" Padding="0"
+                                     Command="{CompiledBinding ShowChangelogDialogCommand}"/>
+                </controls:SettingsExpanderItem>
             </controls:SettingsExpander>
         </StackPanel>
     </ScrollViewer>

@@ -62,6 +62,9 @@
   <data name="Settings.About.LibrariesTitle" xml:space="preserve">
     <value>Open source libraries</value>
   </data>
+  <data name="Settings.About.ChangelogTitle" xml:space="preserve">
+    <value>Changelog</value>
+  </data>
   <data name="Settings.About.ByCompany" xml:space="preserve">
     <value>By rosslight GmbH</value>
   </data>

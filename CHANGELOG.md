@@ -9,6 +9,10 @@ For use in you project, delete the changelog below and replace with your own
 
 ### Added
 - Changelog example
+- Changelog button
+
+### Changed
+- Updated example to net10
 
 ## [1.3.0] - 2025-05-26
 

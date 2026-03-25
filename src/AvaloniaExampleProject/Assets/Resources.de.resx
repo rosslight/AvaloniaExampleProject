@@ -62,6 +62,9 @@
   <data name="Settings.About.LibrariesTitle" xml:space="preserve">
     <value>Open source Bibliotheken</value>
   </data>
+  <data name="Settings.About.ChangelogTitle" xml:space="preserve">
+    <value>Changelog</value>
+  </data>
   <data name="Welcome.ClickMe.ResultsTitle" xml:space="preserve">
     <value>Ergebnis</value>
   </data>

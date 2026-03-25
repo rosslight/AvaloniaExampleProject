@@ -147,6 +147,7 @@
     AppVersion: {},
     SelectedLanguage: en,
     SelectedTheme: Default,
-    ShowLicensesDialogCommand: AvaloniaExampleProject.ViewModels.SettingsViewModel.ShowLicensesDialogAsync
+    ShowLicensesDialogCommand: AvaloniaExampleProject.ViewModels.SettingsViewModel.ShowLicensesDialogAsync,
+    ShowChangelogDialogCommand: AvaloniaExampleProject.ViewModels.SettingsViewModel.ShowChangelogDialogAsync
   }
 }

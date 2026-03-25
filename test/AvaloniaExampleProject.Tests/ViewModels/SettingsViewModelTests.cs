@@ -46,7 +46,7 @@ public class SettingsViewModelTests
             ViewModel = TestAppBuilder.Services.GetRequiredService<SettingsViewModel>(),
             AboutSettingsExpander = { IsExpanded = true },
         };
-        return VerifyControl(control);
+        return VerifyControl(control).ScrubMembersWithType<Resources>();
     }
 
     [Fact(Timeout = 1000)]

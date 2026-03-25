@@ -10,6 +10,10 @@
     <AvaloniaResource Include="Assets/**" />
   </ItemGroup>
   <ItemGroup>
+    <!-- Embed the repo-root changelog so the view model can load it via avares:// -->
+    <AvaloniaResource Include="..\..\CHANGELOG.md" Link="Assets/CHANGELOG.md" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="AsyncAwaitBestPractices" />
     <PackageReference Include="Avalonia" />
     <PackageReference Include="Avalonia.Desktop" />

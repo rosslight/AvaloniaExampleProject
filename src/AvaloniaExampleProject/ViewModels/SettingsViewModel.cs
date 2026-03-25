@@ -77,4 +77,14 @@ public sealed partial class SettingsViewModel(
         string content = await reader.ReadToEndAsync(cancellationToken);
         await _dialogService.CreateMessageBoxDialog(title, content, true).ShowAsync(cancellationToken);
     }
+
+    [RelayCommand]
+    private async Task ShowChangelogDialogAsync(CancellationToken cancellationToken)
+    {
+        string title = I18N.Settings_About_ChangelogTitle;
+        await using var contentStream = AssetLoader.Open(new Uri("avares://AvaloniaExampleProject/Assets/CHANGELOG.md"));
+        using var reader = new StreamReader(contentStream);
+        string content = await reader.ReadToEndAsync(cancellationToken);
+        await _dialogService.CreateMessageBoxDialog(title, content, true).ShowAsync(cancellationToken);
+    }
 }
