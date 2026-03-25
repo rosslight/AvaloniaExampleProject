@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reactive.Disposables;
 
@@ -11,7 +10,7 @@ public partial class Resources : INotifyPropertyChanged
 
     /// <summary> All cultures available </summary>
     public static IReadOnlyList<CultureInfo> AvailableCultures { get; } =
-        [CultureInfo.GetCultureInfo(Languages.Default), CultureInfo.GetCultureInfo(Languages.German)];
+    [CultureInfo.GetCultureInfo(Languages.Default), CultureInfo.GetCultureInfo(Languages.German)];
 
     /// <summary> Get a supported <see cref="CultureInfo"/> for the resources </summary>
     /// <param name="languageName"> The language name (e.g. 'en-US' or 'de') </param>
