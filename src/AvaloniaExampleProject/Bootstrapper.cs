@@ -12,12 +12,14 @@ namespace AvaloniaExampleProject;
 
 public static class Bootstrapper
 {
+    public const string AppDataAssets = "AppDataAssets";
+
     public static IServiceCollection AddAppServices(this IServiceCollection serviceCollection) =>
         serviceCollection
             // Configure core services
             .AddSingleton<IDialogService, AvaloniaDialogService>()
-            .AddAppDataAssetsService("AvaloniaExampleProject")
-            .AddConfigurationFile<MainConfig, IAppDataAssetsService>("config.json", JsonContext.Default.MainConfig)
+            .AddAppDataAssetsService(AppDataAssets, "AvaloniaExampleProject")
+            .AddConfigurationFile<MainConfig>(AppDataAssets, "config.json", JsonContext.Default.MainConfig)
             .AddLocalization()
             .AddSingleton<IThemeService, ThemeService>()
             .AddSingleton<IAppInformationService, AppInformationService>()

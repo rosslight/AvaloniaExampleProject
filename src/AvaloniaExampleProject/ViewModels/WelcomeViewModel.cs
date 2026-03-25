@@ -20,7 +20,6 @@ public sealed partial class WelcomeViewModel(Resources i18N, IDialogService dial
         await _dialogService.ShowMessageBoxDialogAsync(
             I18N.Welcome_ClickMe_ResultsTitle,
             resultData,
-            false,
             cancellationToken
         );
     }

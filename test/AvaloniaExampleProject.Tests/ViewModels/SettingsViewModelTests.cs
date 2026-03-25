@@ -8,7 +8,6 @@ using AvaloniaExampleProject.Models;
 using AvaloniaExampleProject.ViewModels;
 using AvaloniaExampleProject.Views;
 using Darp.Utils.Assets;
-using Darp.Utils.Assets.Abstractions;
 using Darp.Utils.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
@@ -24,8 +23,8 @@ public class SettingsViewModelTests
     public SettingsViewModelTests()
     {
         _services = new ServiceCollection()
-            .AddSingleton<IAssetsService>(new MemoryAssetsService("path/to/config"))
-            .AddConfigurationFile<MainConfig, IAssetsService>("config.json")
+            .AddMemoryAssetsService(Bootstrapper.AppDataAssets, "path/to/config")
+            .AddConfigurationFile<MainConfig>(Bootstrapper.AppDataAssets, "config.json")
             .AddAppServices()
             .AddLogging()
             .BuildServiceProvider();

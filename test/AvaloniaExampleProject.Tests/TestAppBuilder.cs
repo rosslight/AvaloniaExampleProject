@@ -6,7 +6,6 @@ using AvaloniaExampleProject.Business;
 using AvaloniaExampleProject.Models;
 using AvaloniaExampleProject.Tests;
 using Darp.Utils.Assets;
-using Darp.Utils.Assets.Abstractions;
 using Darp.Utils.Configuration;
 using FluentAvalonia.Styling;
 using FluentAvalonia.UI.Controls;
@@ -39,12 +38,17 @@ public class TestAppBuilder
     {
         var appInformationService = Substitute.For<IAppInformationService>();
         appInformationService.Version.Returns("1.2.3-aabbccdd");
-        var assetsService = new MemoryAssetsService("base/path");
-        assetsService.SerializeJsonAsync("config.json", s_mainConfig).GetAwaiter().GetResult();
         IServiceProvider provider = new ServiceCollection()
             .AddLogging(builder => builder.AddXUnit())
-            .AddSingleton<IAssetsService>(assetsService)
-            .AddConfigurationFile<MainConfig, IAssetsService>("config.json")
+            .AddMemoryAssetsService(
+                Bootstrapper.AppDataAssets,
+                "base/path",
+                service =>
+                {
+                    service.SerializeJson("config.json", s_mainConfig);
+                }
+            )
+            .AddConfigurationFile<MainConfig>(Bootstrapper.AppDataAssets, "config.json")
             .AddAppServices()
             .AddSingleton(appInformationService)
             .AddSingleton(new Resources())
