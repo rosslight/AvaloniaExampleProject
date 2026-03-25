@@ -52,7 +52,7 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.get_semantic_release_version.outputs.new_release_published == 'true'
     # Using windows as Cross-OS native compilation is not supported
     # Ubuntu can be used if <PublishAot> is false. If compiling for windows, make sure to set '/p:EnableWindowsTargeting=true'
-    runs-on: windows-latest
+    runs-on: windows-2025-vs2026
     needs: [get_semantic_release_version]
     outputs:
       cache_key: ${{ steps.publish.outputs.cache_key }}
@@ -70,7 +70,7 @@ jobs:
 
   publish_msix:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.get_semantic_release_version.outputs.new_release_published == 'true'
-    runs-on: windows-latest
+    runs-on: windows-2025-vs2026
     needs: [get_semantic_release_version]
     outputs:
       cache_key: ${{ steps.publish.outputs.cache_key }}
@@ -89,7 +89,7 @@ jobs:
   release:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.get_semantic_release_version.outputs.new_release_published == 'true'
     # Has to run on windows because of trusted-signing-action
-    runs-on: windows-latest
+    runs-on: windows-2025-vs2026
     name: Create release
     needs: [ build_test, publish_exe, publish_msix ]
     env:
